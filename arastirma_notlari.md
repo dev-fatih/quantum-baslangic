@@ -164,6 +164,8 @@ Güvenlik denetimi ile aynı şey değildir. Güvenlik denetimi, koddaki mantık
 
 Kodlar farklı adreslerde olduğundan kodlardaki işlemlerin uygulanacağı veriler de farklı olur. Bu nedenle kayıtları ayrı olabilir.
 
+# Ağ Erişimi İşlemler ve Ekosistem 
+
 ## İP 06: RPC Explorer ve Event 
 
 **RPC ve RPC endpoint nedir? Node ve RPC hizmet sağlayıcısı ile ilişkileri nasıldır?**
@@ -266,6 +268,8 @@ ZK'nın kullanılıyor olması tek başına veri gizliliğini belirtmez. ZK, ağ
 
 Kesinlikle optimizasyon kısmını daha sonralarda öğrenmek isterim. Tüm sistemin nasıl çalıştığını, temellerini iyice kavradıktan sonra o sistemi daha hızlı ve daha ucuza çalıştırmayı öğrenebileceğimi düşünüyorum. 
 
+# Proje ve Yarışma Araştırması
+
 ## İP 09: Gerçek Bir Blokzincir Projesini İncele
 
 **Bir gerçek blokzincir projesi seçin; resmî sitesi ve dokümantasyonunu bulun**
@@ -311,6 +315,8 @@ MPC: DLT ağlarındaki dijital varlık ve anahtarların güvenliğini sağlayan 
 
 Fikrimce çok fazla terim ve teorik bilgi olmasına rağmen bunlardan ziyade temel mantığı görsel olarak kafada oturtmanın daha çok işe yarayacağını düşünüyorum. Örneğin validatörler, düğümler bloklar arası ilişkiler, akıllı sözleşmelerin nasıl çalıştığı ve nasıl akıllı sözleşme temelli uygulamalar yapıldığı gibi noktaları anlamak temel olmasına karşın en çok işe yarayacak nokta olabilir.
 
+# Uygulama İçin Çalışma Ortamı
+
 ## IP11 Çalışma Ortamını Hazırla
 
 **Git, GitHub, README, commit ve push kavramlarını birkaç cümleyle açıklayın**
@@ -331,15 +337,59 @@ Solidity: EVM uyumlu blokzincir ağlarında akıllı sözleşme yazmak için kul
 **Benim yorumum: Hangi araç size yeniydi? Kurulumda nasıl ilerlediniz**
 Remix IDE'yi daha önce kullanmadım aynı zamanda MetaMask da kullanmamıştım diğer araçlar zaten mevcuttu.
 
+# Kendi Cüzdanını Oluştur ve Doğrula
+
 ## İP12 Kendi Cüzdan Oluşturucunu Yaz
 
 Burada çok basit bir html oluşturdum çünkü tasarımla ekstra kütüphane ve kod kalabalığı yapmak istemedim. Sadece klasik butonlar ve fonksiyonlar bulunacak.
 
 **her dönüşümün görevini ve kullanılan kütüphane çağrısını açıklayın.**
 
-window.crypto.getRandomValues(new Uint8Array(16)): Rastgele 16 baytlık entropi üretir. 
+*window.crypto.getRandomValues(new Uint8Array(16)):* Rastgele 16 baytlık entropi üretir. 
 
-ethers.Mnemonic.fromEntropy(entropi): 128 bitlik verinin sonuna 4 bitlik özet bitleri ekler ve 132 bitlik parçayı 11'er bitlik parçalara bölüp BIP-39'a göre 12 adet kurtarma kelimesine dönüştürür.
+*ethers.Mnemonic.fromEntropy(entropi):* 128 bitlik verinin sonuna 4 bitlik özet bitleri ekler ve 132 bitlik parçayı 11'er bitlik parçalara bölüp BIP-39'a göre 12 adet kurtarma kelimesine dönüştürür.
 
-const seed = mnemonic.computeSeed(""): 
+*const seed = mnemonic.computeSeed(""):* Oluşan 12 adet kelimeyi bilgisayar kullanamaz. Bu nedenle bu fonksiyon 12 kelimeyi bir sayı dizisine çevirir.
+("") yazmamızın sebebi, buraya istek durumunda 13. kelime eklenebilir. bu gizli ek parola olur ancak standart cüzdanlarda bulunmadığından boş bıraktım.
+12 kelimeyi fonksiyon 2048 kez özetleme işleminden geçirir ve 64 baytlık bir dizi oluşur.
+
+*const kok = ethers.HDNodeWallet.fromSeed(seed):* Ana kök düğümü oluşturur.
+
+*const hesap = kok.derivePath("m/44'/60'/0'/0/0"):* yazılan yoldaki cüzdanı çıkartır.
+
+*privateKey: hesap.privateKey* ve *publicKey: hesap.publicKey*:  Seçilen yoldaki 256 bitlik private keyi okur ve matematiksel işlem uygulayıp public key'i oluşturur.
+
+*adres: hesap.address:* Public Key'in özetini alır ve oluşan 32 baytlık hash'in son 20 bayt'ını keser ve başına 0x ekleyip cüzdan adresini oluşturur.
+
+## İP13 MetaMask ile Karşılaştır ve Checksum Deneyi Yap
+
+![alt text](image.png)
+
+**Checksum sonucu**: yaklaşık 15 tane kelimeyi 12. kurtarma kelimesi ile değiştirdim ancak hiçbiri kabul edilmedi.
+
+**Geçerli mnemonic ile güvenli biçimde üretilmiş mnemonic aynı iddia mıdır?**
+
+Hayır aynı şey değildir. Rastgele 12 kelime de checksum kuralına uyabilir ve güvenli biçimde üretilmemiştir. 
+
+# Test Varlıkları
+
+![alt text](image-1.png)
+
+![alt text](image-2.png)
+
+**Adresi paylaşmak neden harcama yetkisi vermez**
+
+Adres, banka hesaplarındaki IBAN gibidir. Sadece hesabın nerede bulunduğunu söyler. Hesabın 12 kelimelik kurtarma kelimelerini veya private keyinizi belirtmez. O nedenle adresiniz zaten sepolia etherscan'de public şekilde görünür.
+
+
+## İP 15: Test USDC Edin ve İki Transferi Karşılaştır
+
+**İki işlemin To, Value, Input Data, ücret ve token transferi/log alanlarını karşılaştırın. Token’ı cüzdanda göstermekle zincirde almak arasındaki farkı açıklayın.**
+To kısımları aynı çünkü ikisini de 1. hesabımdan 2. hesabıma gönderdim.
+Value kısımında birinde 0.005 SepoilaETH diğerinde ise 1 USDC gönderdim.
+Gas Fee 1.500000018 Gwei gözüküyor ve ikisinde de aynı.
+USDC'de input data kısmı bir fonksiyon şeklinde gözüküyor, SepoilaETH'de ise sadece 0x yazıyor.
+
+**Benim yorumum: USDC gönderirken ücretin hangi bakiyeden karşılandığını nasıl gördünüz?**
+USDC bir token olduğundan gas ücreti Ethereumun temel varlığı olan Sepoila ETH'den gitti. Bunu ilk block explorer'dan transfer işlemlerine bakarken gördüm.
 
