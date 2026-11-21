@@ -11,4 +11,5 @@ Bu depo, QuantumTeam Teknofest Kulübü Blokzincir Takımı oryantasyon süreci 
 
 ## Depo İçeriği
 - `notlar/` — İP 01 - İP 10 arası blokzincir temelleri ve şartname notları
-- *(Uygulama görevleri yapıldıkça cüzdan uygulaması, akıllı sözleşme ve web arayüzü dosyaları eklenecektir.)
+- Basit cüzdan oluşturucu web sitesi(index.html)
+- README.md
