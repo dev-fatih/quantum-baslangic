@@ -311,3 +311,35 @@ MPC: DLT ağlarındaki dijital varlık ve anahtarların güvenliğini sağlayan 
 
 Fikrimce çok fazla terim ve teorik bilgi olmasına rağmen bunlardan ziyade temel mantığı görsel olarak kafada oturtmanın daha çok işe yarayacağını düşünüyorum. Örneğin validatörler, düğümler bloklar arası ilişkiler, akıllı sözleşmelerin nasıl çalıştığı ve nasıl akıllı sözleşme temelli uygulamalar yapıldığı gibi noktaları anlamak temel olmasına karşın en çok işe yarayacak nokta olabilir.
 
+## IP11 Çalışma Ortamını Hazırla
+
+**Git, GitHub, README, commit ve push kavramlarını birkaç cümleyle açıklayın**
+Git: Kodların her değişikliğini kaydeden bilgisayar üzerinde çalışan uygulamadır. Git ile uygulama bozulması durumunda eski sürümlere dönebilirsiniz.
+
+GitHub: Kullanıcıların yazdığı kodları açık veya gizli şekilde bulutta saklayıp yönetebilmesini sağlayan sitedir.
+
+README: Projenin nasıl çalıştığını, nerede çalıştırılması gerektiğini ve neyi amaçladığı gibi konuları ele alan metin belgesi.
+
+commit: commit komutu oyunlardaki save almakla benzerdir. Dosyanızın son durumunu alıp git deposuna kaydeder.
+it 
+push: En son kaydedilen depodaki dosyayı github'a yollar.
+
+**Remix IDE ve Solidity’nin ne işe yaradığını 1–2 cümleyle açıklayın**
+Remix IDE: Ethereum gibi blokzincirlere akıllı sözleşme yazmak için kullanılan bir geliştirme uygulamasıdır.
+Solidity: EVM uyumlu blokzincir ağlarında akıllı sözleşme yazmak için kullanılan üst düzey programlama dilidir.
+
+**Benim yorumum: Hangi araç size yeniydi? Kurulumda nasıl ilerlediniz**
+Remix IDE'yi daha önce kullanmadım aynı zamanda MetaMask da kullanmamıştım diğer araçlar zaten mevcuttu.
+
+## İP12 Kendi Cüzdan Oluşturucunu Yaz
+
+Burada çok basit bir html oluşturdum çünkü tasarımla ekstra kütüphane ve kod kalabalığı yapmak istemedim. Sadece klasik butonlar ve fonksiyonlar bulunacak.
+
+**her dönüşümün görevini ve kullanılan kütüphane çağrısını açıklayın.**
+
+window.crypto.getRandomValues(new Uint8Array(16)): Rastgele 16 baytlık entropi üretir. 
+
+ethers.Mnemonic.fromEntropy(entropi): 128 bitlik verinin sonuna 4 bitlik özet bitleri ekler ve 132 bitlik parçayı 11'er bitlik parçalara bölüp BIP-39'a göre 12 adet kurtarma kelimesine dönüştürür.
+
+const seed = mnemonic.computeSeed(""): 
+

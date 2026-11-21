@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <h2>Eğitim Cüzdanı Oluşturucu</h2>
+  <button onclick="cuzdanOlustur()">Yeni Eğitim Cüzdanı Oluştur</button>
+  <button onclick="gizleGoster()">Gizli Verileri Göster / Gizle</button>
+
+  <pre id="ekran"></pre>
+
+  <!-- Ethereum kütüphanesini dışarıdan projeye dahil ediyoruz -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.13.4/ethers.umd.min.js"></script>
+  
+  <script>
+    let gizliMi = true;
+    let sonSonuc = {};
+
+    function cuzdanOlustur() {
+      const entropi = window.crypto.getRandomValues(new Uint8Array(16));
+
+      const mnemonic = ethers.Mnemonic.fromEntropy(entropi);
+
+      const seed = mnemonic.computeSeed("");
+
+      const kok = ethers.HDNodeWallet.fromSeed(seed);
+      const hesap = kok.derivePath("m/44'/60'/0'/0/0");
+
+      sonSonuc = {
+        entropiHex: ethers.hexlify(entropi),
+        kelimeler: mnemonic.phrase,
+        seed: seed,
+        privateKey: hesap.privateKey,
+        publicKey: hesap.publicKey,
+        adres: hesap.address
+      };
+
+      ekranaYaz();
+    }
+
+    function gizleGoster() {
+      gizliMi = !gizliMi;
+      ekranaYaz();
+    }
+
+    function ekranaYaz() {
+      const m = gizliMi ? "****** (GİZLİ)" : null;
+      document.getElementById("ekran").textContent =
+        "1. Entropi     : " + (m || sonSonuc.entropiHex) + "\n" +
+        "2. 12 Kelime   : " + (m || sonSonuc.kelimeler) + "\n" +
+        "3. Seed        : " + (m || sonSonuc.seed) + "\n" +
+        "4. Yol (Path)  : m/44'/60'/0'/0/0\n" +
+        "5. Private Key : " + (m || sonSonuc.privateKey) + "\n" +
+        "6. Public Key  : " + sonSonuc.publicKey + "\n" +
+        "7. Adres       : " + sonSonuc.adres;
+    }
+  </script>
+</body>
+</html>
