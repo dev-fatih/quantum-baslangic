@@ -226,13 +226,14 @@ Status, receiptin içerisinde yer alan ve işlemin çalışıp çalışmadığı
 
 ```mermaid
 flowchart TD
-    A["1. İmzalama İşlemin private key ile yerel olarak imzalanması"] --> B["2. Gönderme İmzalı ham(uygulanmamış) işlem'in RPC düğümüne iletilmesi"]
-    B --> C["3. Bekleme (Pending / Mempool) İşlemin ağ havuzunda onay ve sıralama beklemesi"]
-    C --> D["4. Bloğa Alınma İşlemin bir bloğa dahil edilip kesinleşmesi"]
+    A["1. İmzalama: İşlemin private key ile yerel olarak imzalanması"] --> B["2. Gönderme: İmzalı ham işlemin RPC düğümüne iletilmesi - Tx Hash: 0x06067a499bb79fc9e1e63bc4f16634d42d7ce70ce1d9dd351056933e9892289f"]
+    B --> C["3. Bekleme (Pending / Mempool): İşlemin ağ havuzunda onay ve sıralama beklemesi"]
+    C --> D["4. Bloğa Alınma: İşlemin bir bloğa dahil edilip kesinleşmesi - Blok: 12181982"]
     D --> E{"5. Sonuç Kontrolü (Transaction Receipt)"}
     E -- "Status: 1 (Başarılı)" --> F["State Güncellendi & Event Logları Alındı"]
     E -- "Status: 0 (Başarısız)" --> G["Hata Durumu İşlendi"]
 ```
+
 **"İşlem başarısız” ile “sonucunu öğrenemedim” neden farklıdır?**
 
 İşlem başarısız ise durum kesindir. İşlem bir sebepten gerçekleşememiştir. Sonucu öğrenememe durumunda ise işlem gerçekleşmiş de olabilir, bekliyor da olabilir. Çünkü sonucu öğrenememe durumunda işlem RPC düğümüne gönderilmiş ama takip kaybedilmiş yahut RPC düğümü çökmüş olabilir.
@@ -392,4 +393,22 @@ USDC'de input data kısmı bir fonksiyon şeklinde gözüküyor, SepoilaETH'de i
 
 **Benim yorumum: USDC gönderirken ücretin hangi bakiyeden karşılandığını nasıl gördünüz?**
 USDC bir token olduğundan gas ücreti Ethereumun temel varlığı olan Sepoila ETH'den gitti. Bunu ilk block explorer'dan transfer işlemlerine bakarken gördüm.
+
+## İP 16: Remix ile Gerçek İsmini Kaydet
+
+**Aynı cüzdanla ikinci kez register çağrısını deneyin. Hatanın işlem gönderilmeden önce mi, zincirde mi oluştuğunu açıklayın.**
+
+Hata, işlem zincire gönderilmeden önce, remix ve metamask'ın yaptığı kontrol sırasında oluşur. Çünkü, quantumkayit isimli contractta her cüzdan adresinin yalnızca bir kez kayıt olabilme şartı vardır. Butona basıldığında metamask ve remix, işlemi zincire göndermeden gas fee'yi hesaplamak için simülasyon oluşturur. Simülasyon, adresin zaten kayıtlı olduğunu fark edip işlemi iptal eder.
+
+## İP17: Explorer ile Kaydı Doğrula
+
+**Takım sözleşmesine yaptığınız başarılı isim kayıt işlemini Sepolia Etherscan’de açın. From, To, Gas Used/ücret, Nonce, Status ve Input Data alanlarını kendi cümlelerinizle açıklayın.**
+
+From kısmında karşılaştırdığımda kendi cüzdan adresim bulunuyor. To kısmında ise sözleşmenin adresi yazıyor. Gas fee kısmında neredeyse milyarda birlik bir gwei ücreti yazıyor. Nonce kısmına baktığımda producer adresi de gözüküyor.Cüzdanımın nonce'u 2'den 3 olmuş. Yani benim gönderdiğim 3. işlem olduğunu belirtiyor. Status kısmında da "Success" olarak başarıyla gerçekleştiğini belirtiyor.<br>
+Input data kısmında ise fonksiyonun ismi ve kimlik kodu bulunur. Ayrıca parametre olarak yazdığım isim de bulunur.
+
+![alt text](image-3.png)
+
+![alt text](image-4.png)
+
 

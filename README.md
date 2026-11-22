@@ -13,3 +13,9 @@ Bu depo, QuantumTeam Teknofest Kulübü Blokzincir Takımı oryantasyon süreci 
 - `notlar/` — İP 01 - İP 10 arası blokzincir temelleri ve şartname notları
 - Basit cüzdan oluşturucu web sitesi(index.html)
 - README.md
+
+
+## Kullanılan Araçlar
+- mermaid.live
+- Remix IDE 
+- MetaMask
