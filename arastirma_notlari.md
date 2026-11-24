@@ -410,5 +410,38 @@ Input data kısmında ise fonksiyonun ismi ve kimlik kodu bulunur. Ayrıca param
 ![alt text](image-3.png)
 
 ![alt text](image-4.png)
+<br/>
+<br>
 
+**İkinci kayıt denemesinin tx hash’i veya makbuzu yoksa bunu açıkça yazın. Gönderilmemiş hata ile bloğa alınmış başarısız işlemi aynı saymayın.**
 
+İkinci kayıt denemesine ait herhangi bir tx hash veya receipt oluşmamıştır. Çünkü İP16'da da açıkladığım üzere işlem blokzincire gönderilmediğinden sorgulanabilecek bir kayıt bulunmamaktadır. 
+
+**Benim yorumum: Input Data, event ve mevcut state size hangi farklı soruların cevabını verdi?**
+
+*Input Data:* Gönderici sözleşmeye ne yapması söylendi ve hangi input yollandı?<br>
+*Event(log):* İşlem sırasında zincirde ne meydana geldi ve hangi değerler üretildi?<br>
+*State:* Sözleşmenin hafızasında şu an durum nedir?
+
+## İP 18: Takım Sözleşmesinin Kopyasını Deploy Et ve Verify Et 
+
+**Benim yorumum: Aynı kodun farklı adreste çalışması neden eski kayıtları otomatik taşımıyor?**
+
+Çünkü kod ile data aynı şey değildir ve aynı yerlerde saklanmaz. Veri, her sözleşme adresinin zincir üzerindeki kendi depolama alanında tutulur.
+
+## Sözleşme Kopyası Doğrulama
+(Solidity 0.8.34+commit.80d5c536)
+Osaka
+Contract Tx Hash: 0x9b855b84e600576ca0735216e6709612686f76a191dbf3eadbda9ab84382c1fa
+Contract Adress: 0x7843FB7EAeE20B9713b1fF40AA3A2D3a76F595A7
+Optimization: No
+
+## İP 19: Etherscan Write Contract ile Kendi Sözleşmene Kaydol 
+
+**Read Contract bölümündeki kayitliMi ve tumKayitlar ile kaydı okuyun; işlemdeki Registered event’ini bulun. Aynı hesabın takım sözleşmesindeki kaydıyla kendi sözleşmenizdeki kaydını ayırın**
+Etherscan register tx hash: 0x3d06290678047ab91af8cdad96777caa797162afec62d60c244531325824b0be,<br>
+![alt text](image-5.png)
+
+**Benim yorumum: Aynı cüzdan takım sözleşmesine ikinci kez kaydolamazken kendi kopyanıza neden kaydolabildi?**
+
+Akıllı sözleşmelerdeki adres başına kayıt yalnızca işlemin gönderildiği sözleşme adresinin hafızası içinde kontrol edildiği için kaydolabiliyoruz. Yani yeni sözleşme diğer sözleşmenin hafızasını tutmaz.
