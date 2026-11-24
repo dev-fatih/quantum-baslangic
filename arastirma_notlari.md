@@ -51,14 +51,14 @@ Her node bir blok **üretmez**. Yalnızca validatör gibi özel düğümler blok
 PoW mekanizmasında madenciler yeni bir blok oluşturmaya çalışır. Bunun için karmaşık problemleri çözmek zorundadırlar ve bunun için yüksek güçte donanımlar gerekir ve elektrik maliyetleri yüksek olabilir.
 PoS mekanizmasında ise validatörler, işlem onayına katkı ve ödüllendirme için sisteme belirli düzey varlıklarını kilitlerler. Dürüst olan katılımcılara ödül, olmayanlara ise kilitledikleri varlıklardan kesinti yapılır.
 
-**Public/private ve permissionless/permissioned ağ kavramları hangi özellikleri anlatır? Okuma, işlem gönderme ve doğrulayıcı olma izinlerini ayırın.** 
+- **Public/private ve permissionless/permissioned ağ kavramları hangi özellikleri anlatır? Okuma, işlem gönderme ve doğrulayıcı olma izinlerini ayırın.** 
 
 **Public Ağ:** Public ağdaki tüm verileri herkes okuyabilir, herkes ağa işlem gönderebilir.
 **Private Ağ:** Verilerde işlem yapmak, yeni veri eklemek, okumak için yetki almak gerekir. Yetkisiz kişilere bu işlemler kapalıdır.
 **Permisionless Ağ:** Bu ağlarda isteyen herkes protokol yazılımını indirip onay gerekmeden validator olabilir.
 **Permissioned Ağ:** Bu ağlarda ise sadece konsensüs yetkilileri tarafından izin sağlanan, yetkili node'lar validatör olabilir.
 
-**İşlemin bloğa alınması, başarılı çalışması ve kesinleşmesi neden farklıdır?**
+- **İşlemin bloğa alınması, başarılı çalışması ve kesinleşmesi neden farklıdır?**
 
 İşlemin bloğa alınması sürecinde bir validatör işlemi havuzdan alıp bloğa dahil eder.
 Başarılı çalışması ise bloğa alınan işlemin kod içinde hata vermeden tamamlanması sürecidir; çünkü işlem hata verip başarısız olsa bile bloğa girip gas ücreti ödeyebilir.
@@ -71,17 +71,17 @@ Ağın devamlılığı yeterli validatör sayısının sağlanıp sağlanmadığ
 # Cüzdan Varlık ve Sözleşme Kavramları 
 ## İP 03: Kriptografi ve Cüzdan 
 
-**Hash, şifreleme ve dijital imza hangi farklı amaçlarla kullanılır?**
+- **Hash, şifreleme ve dijital imza hangi farklı amaçlarla kullanılır?**
 
 *Hash*, verileri toplar ve benzersiz bir dijital parmak izine dönüştürür. Verideki en ufak değişiklik hash'i tamamen değiştirir. Blokları birbirine bağlamak için kullanılır. 
 *Şifreleme*, okunabilir verileri yetkisiz kullanıcıların çözemeyeceği şifreli metinlere dönüştürür ve sadece anahtara sahip kişiler metne erişebilir. Bu durum güvenliği sağlar ve kötü amaçlı şahısların önemli verilere erişimini engeller.
 *Diğital imza*, Şifreleme(Kriptografi) ile hash'in birleşimidir. Gönderici, işlemi imzalamak yerine önce hash özetini çıkarır ve sonrasında imzalar.
 
-**Private key, public key, adres, mnemonic ve seed arasındaki ilişki nedir**
+- **Private key, public key, adres, mnemonic ve seed arasındaki ilişki nedir**
 
 Bu kavramlar, tek yönlü bir türetme zinciri oluşturur (Mnemonic -> Seed -> Private Key -> Public Key -> Adres). Baştaki veri bilindiğinde sonraki veriler de aynı şekilde hesaplanır ancak son hali bilinen veriyi geriye döndürmek imkansızdır. Bu zincirin en sonunda ise ortaya cüzdan adresi çıkar.
 
-**Entropi ve checksum ne işe yarar? BIP39, BIP32 ve BIP44 hangi aşamalarla ilgilidir?**
+- **Entropi ve checksum ne işe yarar? BIP39, BIP32 ve BIP44 hangi aşamalarla ilgilidir?**
 Cüzdan oluşturma sırasında entropi güvenlik temelini, checksum hata kontrolünü sağlar. BIP39 entropiden kurtarma kelimelerinin (mnemonic) oluşturulmasıyla, BIP32 tek bir seed'den hiyerarşik anahtar türetilmesiyle, BIP44 ise farklı coin ve hesapların standart türetme yollarıyla ilgilidir.
 *Entropi*: Cüzdanın tahmin edilemezliğini sağlayan binary veridir. Rastgele sayı üretici ile 128 veya 256 bit şeklinde üretilir ve bu nedenle herhangi birinin aynı cüzdanı üretebilmesi matematiksel olarak mümkün değildir.
 *Checksum*: Kullanıcı kelime listesini veya cüzdan adresini girerken yanlış bir harf yazdığında sistem bunu fark eder ve geçersiz uyarısı vererek hatalı adrese para aktarımını engeller.
