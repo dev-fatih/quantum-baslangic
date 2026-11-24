@@ -1,4 +1,4 @@
-# Blokzincir Temelleri
+# A) Blokzincir Temelleri
 ## İP01  Blokzincir ve Ortak Kayıt
 
 
@@ -22,7 +22,7 @@ Kullanıcılar ağ üzerinde işlemler gerçekleştirir. Bu işlemler doğrulan�
 
 - **Geçmiş işlemin kaydı ile sözleşmede tutulan güncel değerin değişmesi nasıl ayrılır?**
 
-**Sözleşmede tutulan güncel değer** verinin ağdaki düğümlerde tutulan en güncel halidir. Geçmişteki değerlerle ilgilenmez ve onları bilmez. Akıllı sözleşmelerin bu veriye anlık olarak erişip okuyabilmesi ve tüm nodeların aktif veritabanında (state) tutması nedeniyle maliyeti yüksektir.
+**Sözleşmede tutulan güncel değer** verinin ağdaki düğümlerde tutulan en güncel halidir. Geçmişteki değerlerle ilgilenmez ve onları bilmez. Akıllı sözleşmelerin bu veriye anlık erişip okuyabilmesi ve tüm nodeların aktif veritabanında (state) tutması nedeniyle maliyeti yüksektir.
 **Geçmiş işlemin kaydı** gerçekleşen işlemleri blokzincirin değişmez geçmişine yeni satır (log) olarak ekler. Akıllı sözleşmeler tarafından içeriden okunmadığı ve sadece geçmiş kaydı olarak tutulduğu için maliyeti düşüktür.
 
 - **Bir etkinlik kayıt sisteminde blokzincir kullanmanın yararı ve ek maliyeti ne olabilir?**
@@ -51,14 +51,14 @@ Her node bir blok **üretmez**. Yalnızca validatör gibi özel düğümler blok
 PoW mekanizmasında madenciler yeni bir blok oluşturmaya çalışır. Bunun için karmaşık problemleri çözmek zorundadırlar ve bunun için yüksek güçte donanımlar gerekir ve elektrik maliyetleri yüksek olabilir.
 PoS mekanizmasında ise validatörler, işlem onayına katkı ve ödüllendirme için sisteme belirli düzey varlıklarını kilitlerler. Dürüst olan katılımcılara ödül, olmayanlara ise kilitledikleri varlıklardan kesinti yapılır.
 
-- **Public/private ve permissionless/permissioned ağ kavramları hangi özellikleri anlatır? Okuma, işlem gönderme ve doğrulayıcı olma izinlerini ayırın.** 
+**Public/private ve permissionless/permissioned ağ kavramları hangi özellikleri anlatır? Okuma, işlem gönderme ve doğrulayıcı olma izinlerini ayırın.** 
 
 **Public Ağ:** Public ağdaki tüm verileri herkes okuyabilir, herkes ağa işlem gönderebilir.
 **Private Ağ:** Verilerde işlem yapmak, yeni veri eklemek, okumak için yetki almak gerekir. Yetkisiz kişilere bu işlemler kapalıdır.
 **Permisionless Ağ:** Bu ağlarda isteyen herkes protokol yazılımını indirip onay gerekmeden validator olabilir.
 **Permissioned Ağ:** Bu ağlarda ise sadece konsensüs yetkilileri tarafından izin sağlanan, yetkili node'lar validatör olabilir.
 
-- **İşlemin bloğa alınması, başarılı çalışması ve kesinleşmesi neden farklıdır?**
+**İşlemin bloğa alınması, başarılı çalışması ve kesinleşmesi neden farklıdır?**
 
 İşlemin bloğa alınması sürecinde bir validatör işlemi havuzdan alıp bloğa dahil eder.
 Başarılı çalışması ise bloğa alınan işlemin kod içinde hata vermeden tamamlanması sürecidir; çünkü işlem hata verip başarısız olsa bile bloğa girip gas ücreti ödeyebilir.
@@ -66,22 +66,22 @@ Kesinleşmesi sürecinde ise ağa sunulan bloğun, validatörlerin çoğunluğu 
 
 **Benim yorumum: Tek bir node kapanınca bütün ağın durup durmayacağı neye bağlıdır?**
 
-Ağın devamlılığı yeterli validatör sayısının sağlanıp sağlanmadığına ve o node'un ağ üzerindeki görevine bağlıdır. Normal bir full node kapanırsa ağ etkilenmez çünkü veriler zaten diğer nodelarda da kopyalıdır. Ancak aktif validatör sayısı çoğunluk (konsensüs) sağlanamayacak kadar azalırsa ağ yeni blok üretemez ve durur.
+Ağın devamlılığı yeterli validatör sayısının sağlanıp sağlanmadığına ve o node'un ağ üzerindeki görevine bağlıdır. Normal bir full node kapanırsa ağ etkilenmez çünkü veriler diğer nodelarda da kopyalıdır. Ancak aktif validatör sayısı çoğunluk (konsensüs) sağlanamayacak kadar azalırsa ağ yeni blok üretemez ve durur.
 
-# Cüzdan Varlık ve Sözleşme Kavramları 
+# A) Cüzdan Varlık ve Sözleşme Kavramları 
 ## İP 03: Kriptografi ve Cüzdan 
 
-- **Hash, şifreleme ve dijital imza hangi farklı amaçlarla kullanılır?**
+**Hash, şifreleme ve dijital imza hangi farklı amaçlarla kullanılır?**
 
 *Hash*, verileri toplar ve benzersiz bir dijital parmak izine dönüştürür. Verideki en ufak değişiklik hash'i tamamen değiştirir. Blokları birbirine bağlamak için kullanılır. 
 *Şifreleme*, okunabilir verileri yetkisiz kullanıcıların çözemeyeceği şifreli metinlere dönüştürür ve sadece anahtara sahip kişiler metne erişebilir. Bu durum güvenliği sağlar ve kötü amaçlı şahısların önemli verilere erişimini engeller.
 *Diğital imza*, Şifreleme(Kriptografi) ile hash'in birleşimidir. Gönderici, işlemi imzalamak yerine önce hash özetini çıkarır ve sonrasında imzalar.
 
-- **Private key, public key, adres, mnemonic ve seed arasındaki ilişki nedir**
+**Private key, public key, adres, mnemonic ve seed arasındaki ilişki nedir**
 
 Bu kavramlar, tek yönlü bir türetme zinciri oluşturur (Mnemonic -> Seed -> Private Key -> Public Key -> Adres). Baştaki veri bilindiğinde sonraki veriler de aynı şekilde hesaplanır ancak son hali bilinen veriyi geriye döndürmek imkansızdır. Bu zincirin en sonunda ise ortaya cüzdan adresi çıkar.
 
-- **Entropi ve checksum ne işe yarar? BIP39, BIP32 ve BIP44 hangi aşamalarla ilgilidir?**
+**Entropi ve checksum ne işe yarar? BIP39, BIP32 ve BIP44 hangi aşamalarla ilgilidir?**
 Cüzdan oluşturma sırasında entropi güvenlik temelini, checksum hata kontrolünü sağlar. BIP39 entropiden kurtarma kelimelerinin (mnemonic) oluşturulmasıyla, BIP32 tek bir seed'den hiyerarşik anahtar türetilmesiyle, BIP44 ise farklı coin ve hesapların standart türetme yollarıyla ilgilidir.
 *Entropi*: Cüzdanın tahmin edilemezliğini sağlayan binary veridir. Rastgele sayı üretici ile 128 veya 256 bit şeklinde üretilir ve bu nedenle herhangi birinin aynı cüzdanı üretebilmesi matematiksel olarak mümkün değildir.
 *Checksum*: Kullanıcı kelime listesini veya cüzdan adresini girerken yanlış bir harf yazdığında sistem bunu fark eder ve geçersiz uyarısı vererek hatalı adrese para aktarımını engeller.
@@ -164,7 +164,7 @@ Güvenlik denetimi ile aynı şey değildir. Güvenlik denetimi, koddaki mantık
 
 Kodlar farklı adreslerde olduğundan kodlardaki işlemlerin uygulanacağı veriler de farklı olur. Bu nedenle kayıtları ayrı olabilir.
 
-# Ağ Erişimi İşlemler ve Ekosistem 
+# A) Ağ Erişimi İşlemler ve Ekosistem 
 
 ## İP 06: RPC Explorer ve Event 
 
@@ -269,7 +269,7 @@ ZK'nın kullanılıyor olması tek başına veri gizliliğini belirtmez. ZK, ağ
 
 Kesinlikle optimizasyon kısmını daha sonralarda öğrenmek isterim. Tüm sistemin nasıl çalıştığını, temellerini iyice kavradıktan sonra o sistemi daha hızlı ve daha ucuza çalıştırmayı öğrenebileceğimi düşünüyorum. 
 
-# Proje ve Yarışma Araştırması
+# A) Proje ve Yarışma Araştırması
 
 ## İP 09: Gerçek Bir Blokzincir Projesini İncele
 
@@ -306,6 +306,10 @@ Projenin güçlü tarafı tabii ki işlem ücretinin olmayıp çok hızlı çal�
 Blokzincir teknolojisi, merkeziyetsiz teknolojisi ve değiştirilemez yapısı gibi birçok özelliği ile gelecek vaat eden bir teknolojidir. Yarışmanın sebebi ise Türkiye'de bu teknolojiye karşı ilgi ve bilgi birikimi sağlayıp, sadece bu teknolojinin kullanıcısı olmaktan çıkıp bu teknolojinin üreticisi konumunda da Türkiye olarak bulunmayı amaçlamaktadır. 
 Takım, geçen sene HALOCLINE projesi ile yarışmada 3.'lük yakaladı. Bu sistem işletmelerin izole çalışan ödeme gibi sistemlerini blokzincir teknolojisi ile buluşturarak daha şeffaf, güvenilir bir sistem kurmayı amaçlamıştır. Ayrıca takım, yalnızca yarışma için değil, gerçek hayatta da kullanılabilir, ticari sistemlere entegre edilebilir sistemler kurmayı amaçlamıştır.
 
+**Başvuru, rapor, sunum veya prototip gibi beklenen çıktıları ve değerlendirme ölçütlerini inceleyin**
+
+Yarışma sürecinde başvuru aşamasından sonra proje ön değerlendirme ve detay raporları, sunum dosyası ve çalışan bir prototip beklenmektedir. Değerlendirme ölçütlerinde ise projenin gerçek bir probleme çözüm üretmesi, teknik mimarinin tutarlılığı, blokzincir kullanımının gerekçesi, uygulanabilirlik ve sunum kalitesi öne çıkmaktadır.
+
 **Anlamadığınız kavramlar varsa; araştırıp kısa biçimde açıklayın**
 
 DLT(Distributed Ledger Technology) : Dağıtık defter teknolojisi, blokzincir teknolojisinin de bir alt dalı olan merkeziyetsiz teknoloji türüdür.
@@ -316,7 +320,7 @@ MPC: DLT ağlarındaki dijital varlık ve anahtarların güvenliğini sağlayan 
 
 Fikrimce çok fazla terim ve teorik bilgi olmasına rağmen bunlardan ziyade temel mantığı görsel olarak kafada oturtmanın daha çok işe yarayacağını düşünüyorum. Örneğin validatörler, düğümler bloklar arası ilişkiler, akıllı sözleşmelerin nasıl çalıştığı ve nasıl akıllı sözleşme temelli uygulamalar yapıldığı gibi noktaları anlamak temel olmasına karşın en çok işe yarayacak nokta olabilir.
 
-# Uygulama İçin Çalışma Ortamı
+# B) Uygulama İçin Çalışma Ortamı
 
 ## IP11 Çalışma Ortamını Hazırla
 
@@ -338,7 +342,7 @@ Solidity: EVM uyumlu blokzincir ağlarında akıllı sözleşme yazmak için kul
 **Benim yorumum: Hangi araç size yeniydi? Kurulumda nasıl ilerlediniz**
 Remix IDE'yi daha önce kullanmadım aynı zamanda MetaMask da kullanmamıştım diğer araçlar zaten mevcuttu.
 
-# Kendi Cüzdanını Oluştur ve Doğrula
+# B) Kendi Cüzdanını Oluştur ve Doğrula 
 
 ## İP12 Kendi Cüzdan Oluşturucunu Yaz
 
@@ -362,6 +366,10 @@ Burada çok basit bir html oluşturdum çünkü tasarımla ekstra kütüphane ve
 
 *adres: hesap.address:* Public Key'in özetini alır ve oluşan 32 baytlık hash'in son 20 bayt'ını keser ve başına 0x ekleyip cüzdan adresini oluşturur.
 
+**Benim yorumum: Mnemonic ile private key arasındaki farkı kendi uygulamanız üzerinden açıklayın.**
+
+Uygulamamdaki koda göre mnemonic, en başta entropiden üretilen ve seed üzerinden ana kökü (kok) oluşturan 12 kelimedir. privateKey ise kok.derivePath fonksiyonuyla belirli bir yoldan türettiğimiz tek bir hesabın anahtarıdır. Yani aynı mnemonic üzerinden farklı yollarla birden fazla hesap ve privateKey üretebiliriz ama elimizde sadece privateKey varsa tek bir hesaba erişebiliriz, geriye dönüp 12 kelimeye ulaşamayız.
+
 ## İP13 MetaMask ile Karşılaştır ve Checksum Deneyi Yap
 
 ![alt text](image.png)
@@ -372,8 +380,9 @@ Burada çok basit bir html oluşturdum çünkü tasarımla ekstra kütüphane ve
 
 Hayır aynı şey değildir. Rastgele 12 kelime de checksum kuralına uyabilir ve güvenli biçimde üretilmemiştir. 
 
-# Test Varlıkları
+# B) Test Varlıkları 
 
+## İP 14: Test ETH Kaynağını Kendin Bul
 ![alt text](image-1.png)
 
 ![alt text](image-2.png)
@@ -386,24 +395,30 @@ Adres, banka hesaplarındaki IBAN gibidir. Sadece hesabın nerede bulunduğunu s
 ## İP 15: Test USDC Edin ve İki Transferi Karşılaştır
 
 **İki işlemin To, Value, Input Data, ücret ve token transferi/log alanlarını karşılaştırın. Token’ı cüzdanda göstermekle zincirde almak arasındaki farkı açıklayın.**
-To kısımları aynı değil; SepoliaETH gönderirken To kısmında direkt 2. hesabımın adresi yazıyor ancak USDC gönderirken To kısmında USDC akıllı sözleşmesinin adresi yazıyor, alıcı adresim ise Input Data içinde yer alıyor.<br>
-
-Value kısmında SepoliaETH işleminde 0.005 SepoliaETH yazarken USDC işleminde native varlık gönderilmediği için 0 ETH yazıyor, gönderilen 1 USDC ise Tokens Transferred kısmında görünüyor.<br>
-
-Birim gas fiyatı (Gas Price) 1.500000018 Gwei ile aynı olsa da USDC transferi akıllı sözleşme çalıştırdığı için daha fazla gas harcıyor ve toplam işlem ücreti daha yüksek çıkıyor.<br>
-
-USDC'de input data kısmı transfer fonksiyonu ve parametreleri şeklinde gözüküyor, SepoliaETH'de ise sadece 0x yazıyor. Aynı şekilde SepoliaETH işleminde event log oluşmazken USDC işleminde Transfer event logu oluşuyor.<br>
-
+To kısımları aynı değil; SepoliaETH gönderirken To kısmında direkt 2. hesabımın adresi yazıyor ancak USDC gönderirken To kısmında USDC akıllı sözleşmesinin adresi yazıyor, alıcı adresim ise Input Data içinde yer alıyor.
+Value kısmında SepoliaETH işleminde 0.005 SepoliaETH yazarken USDC işleminde native varlık gönderilmediği için 0 ETH yazıyor, gönderilen 1 USDC ise Tokens Transferred kısmında görünüyor.
+Birim gas fiyatı (Gas Price) 1.500000018 Gwei ile aynı olsa da USDC transferi akıllı sözleşme çalıştırdığı için daha fazla gas harcıyor ve toplam işlem ücreti daha yüksek çıkıyor.
+USDC'de input data kısmı transfer fonksiyonu ve parametreleri şeklinde gözüküyor, SepoliaETH'de ise sadece 0x yazıyor. Aynı şekilde SepoliaETH işleminde event log oluşmazken USDC işleminde Transfer event logu oluşuyor.
 Token'ı zincirde almak, USDC akıllı sözleşmesindeki bakiye kaydının senin adresine yazılmasıdır. Cüzdanda göstermek (import etmek) ise sadece MetaMask arayüzüne bu sözleşmedeki bakiyeyi ekrana yansıtmasını söylemektir; cüzdanda görünmese bile token zincirde zaten senindir.
 
 **Benim yorumum: USDC gönderirken ücretin hangi bakiyeden karşılandığını nasıl gördünüz?**
 USDC bir token olduğundan gas ücreti Ethereumun temel varlığı olan Sepoila ETH'den gitti. Bunu ilk block explorer'dan transfer işlemlerine bakarken gördüm.
+
+# C) Takım Sözleşmesiyle İşlem Yap 
 
 ## İP 16: Remix ile Gerçek İsmini Kaydet
 
 **Aynı cüzdanla ikinci kez register çağrısını deneyin. Hatanın işlem gönderilmeden önce mi, zincirde mi oluştuğunu açıklayın.**
 
 Hata, işlem zincire gönderilmeden önce, remix ve metamask'ın yaptığı kontrol sırasında oluşur. Çünkü, quantumkayit isimli contractta her cüzdan adresinin yalnızca bir kez kayıt olabilme şartı vardır. Butona basıldığında metamask ve remix, işlemi zincire göndermeden gas fee'yi hesaplamak için simülasyon oluşturur. Simülasyon, adresin zaten kayıtlı olduğunu fark edip işlemi iptal eder.
+
+Kontrol sitesinde (`haloclineblockchain.vercel.app`) ismimi arattım ve kaydımın listede göründüğünü doğruladım.
+
+**Benim yorumum: İsminizin sitede görünmesiyle zincirde kaydedilmiş olması aynı kontrol müdür?**
+
+Hayır, aynı kontrol değildir. Zincirde kaydedilmiş olması işlemin blokzincire işlendiğini ve sözleşmenin kendi hafızasında tutulduğunu doğrular. Sitede görünmesi ise sadece o web arayüzünün doğru sözleşme adresini okuyup kendi listesiyle eşleştirdiğini gösterir. Site çökse veya yanlış kontrata baksa bile zincirdeki kaydım durmaya devam eder.
+
+# C) Kanıtla ve Kendi Kopyanı Yayınla 
 
 ## İP17: Explorer ile Kaydı Doğrula
 
@@ -418,6 +433,8 @@ Input data kısmında ise fonksiyonun ismi ve kimlik kodu bulunur. Ayrıca param
 <br/>
 <br>
 
+Sözleşmenin Read Contract kısmından `kayitliMi` fonksiyonuna adresimi girip `true` sonucunu gördüm. `tumKayitlar` üzerinden de adresimin karşısında kayıtlı ismimin doğru şekilde tutulduğunu doğruladım.
+
 **İkinci kayıt denemesinin tx hash’i veya makbuzu yoksa bunu açıkça yazın. Gönderilmemiş hata ile bloğa alınmış başarısız işlemi aynı saymayın.**
 
 İkinci kayıt denemesine ait herhangi bir tx hash veya receipt oluşmamıştır. Çünkü İP16'da da açıkladığım üzere işlem blokzincire gönderilmediğinden sorgulanabilecek bir kayıt bulunmamaktadır. 
@@ -429,6 +446,12 @@ Input data kısmında ise fonksiyonun ismi ve kimlik kodu bulunur. Ayrıca param
 *State:* Sözleşmenin hafızasında şu an durum nedir?
 
 ## İP 18: Takım Sözleşmesinin Kopyasını Deploy Et ve Verify Et 
+
+Yeni yayınladığım kopya sözleşmede Read Contract üzerinden `kayitliMi` (`false`) ve `tumKayitlar` kontrolünü yaptım; takım sözleşmesindeki eski kaydımın yeni sözleşmeye taşınmadığını doğruladım.
+
+**Deploy ile At Address / Add Contract farkını açıklayın.**
+
+Deploy komutu derlenen bytecode'u ağa gönderip sıfırdan yeni bir akıllı sözleşme oluşturur ve ona yeni bir adres verir. At Address / Add Contract ise ağa yeni bir şey yüklemez; zaten blokzincirde var olan bir sözleşmeye adresi ve ABI bilgisi üzerinden bağlanmamızı sağlar.
 
 **Benim yorumum: Aynı kodun farklı adreste çalışması neden eski kayıtları otomatik taşımıyor?**
 
@@ -452,3 +475,29 @@ Takım sözleşmesindeki kaydım takım kontratının kendi depolama alanında t
 **Benim yorumum: Aynı cüzdan takım sözleşmesine ikinci kez kaydolamazken kendi kopyanıza neden kaydolabildi?**
 
 Akıllı sözleşmelerdeki adres başına kayıt yalnızca işlemin gönderildiği sözleşme adresinin hafızası içinde kontrol edildiği için kaydolabiliyoruz. Yani yeni sözleşme diğer sözleşmenin hafızasını tutmaz.
+
+# D) Kendi Etkinlik Sözleşmeni Geliştir
+
+## İP 20: İlk Etkinlik Kaydını Oluştur
+
+**Kodda verinin nerede tutulduğunu ve msg.sender’ın görevini açıklayın.**
+
+Değişkenler durum değişkeni olduğundan blokzincirin storage bölgesinde tutulur. Yani direkt blokzincirde tutulur. Burada Remix VM kullandığımızdan blokzincir ağı tarayıcıda simüle edilir. Ancak gerçek bir blokzincire deploy edildiğinde blokzincir içinde bulunur.<br>
+
+msg.sender; sözleşmedeki işlemi gönderenin cüzdan adresini yakalayan bir etikettir. Kayıt olma fonksiyonu başlatıldığında kod, işlemi başlatan kişinin adresini takma adıyla birlikte kaydeder.
+
+**Benim yorumum: Bu ilk sürüm hangi yanlış kullanımları henüz engellemiyor?**
+
+Kullanıcı boş takma ad ile kayıt oluşturabilir <br>
+
+Kullanıcı farklı kullanıcı adlarıyla tekrar kayıt olma fonksiyonunu çağırırsa adının üstüne yenisi yazılır.<br>
+
+Takma adları aynı olabilir. Aynı takma adın alınmasını önleyen bir kontrol koymadık.
+
+## İP21: Kapasite ve Kayıt Kurallarını Ekle
+
+**Benim yorumum: Adres başına sınırın gerçek kişi sayısını neden garanti etmediğini açıklayın**
+
+Adres sayısı kişi sayısını belirtmez. İsteyen kişi onlarca cüzdan açabilir ve oradan tekrar kayıt olabilir. O nedenle adres başına sınır kişi sayısını garanti etmez.
+
+# D) Yetkilendirme ve Test Ağına Geçiş
