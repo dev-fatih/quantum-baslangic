@@ -2,7 +2,7 @@
 ## İP01  Blokzincir ve Ortak Kayıt
 
 
-• **Blokzincir, işlem, blok ve dağıtık defter nedir? Birbirleriyle nasıl ilişkilidir?**
+- **Blokzincir, işlem, blok ve dağıtık defter nedir? Birbirleriyle nasıl ilişkilidir?**
 
 **Blokzincir**: verilerin merkezi bir sunucuda bulunmadan, ağa bağlı olan bilgisayarlarda bloklar halinde saklandığı dağıtık bir veritabanı tipidir. Bloklar halinde birbirine bağlandığı bir veritabanı tipidir. Blokzincirdeki veriler bir kez eklendikten sonra değiştirilemez veya silinemez. Eğer ki veride bir güncelleme yapılacak ise yeni blokta yapılır. Yapılan tüm işlemler ağa bağlı olan tüm bilgisayarlar tarafından görülebilir.
 
@@ -14,29 +14,29 @@ Blokzincir sistemini bir **defter** olarak düşündüğümüzde, bu defterin sa
 
 Kullanıcılar ağ üzerinde işlemler gerçekleştirir. Bu işlemler doğrulanıp bir paket halinde toplanarak bir blok oluşturur. Oluşturulan bu bloklar, hash yöntemiyle şifrelenip sonraki blokta tutulur. birbirleri arasındaki ilişki genel olarak böyle ifade edilebilir.
 
-• **Merkezi veritabanıyla blokzincir arasında kayıt kontrolü ve güven açısından ne fark vardır?**
+- **Merkezi veritabanıyla blokzincir arasında kayıt kontrolü ve güven açısından ne fark vardır?**
 
 **Merkezi veritabanında** kayıtların kontrolü tek bir otoritenin (şirket, kurum veya sistem yöneticisi) elindedir. Veriler üzerinde değiştirme, silme veya geriye dönük düzeltme yapma yetkisi tamamen bu otoritededir. Bu sistemde güven, veriyi tutan o merkezi kurumun dürüstlüğüne ve iyi niyetine dayanır, yani kuruma güvenmek zorundasınızdır.
 
 **Blokzincirde** ise kayıt kontrolü merkeziyetsizdir yani ağdaki tüm katılımcılara dağıtılmıştır. Bir kaydın deftere eklenebilmesi için ağdaki bilgisayarların çoğunluğunun ortak onayı gerekir. Veri bir kez şifrelenip eklendikten sonra kimse tarafından değiştirilemez veya silinemez. Bu nedenle blokzincirde güven bir kişiye, yöneticiye veya kuruma değil, doğrudan şifrelemeye ve sistemin kurallarına duyulur.
 
-• **Geçmiş işlemin kaydı ile sözleşmede tutulan güncel değerin değişmesi nasıl ayrılır?**
+- **Geçmiş işlemin kaydı ile sözleşmede tutulan güncel değerin değişmesi nasıl ayrılır?**
 
-**Sözleşmede tutulan güncel değer** verinin bilgisayarda tutulan en güncel halidir. Geçmişteki değerlerlerle ilgilenmez ve onları bilmez. Verilerin güncel değeri sürekli olarak bilgisayar tarafından bilindiği ve çağrılabilir olması nedeniyle maliyeti yüksektir.
-**Geçmiş işlemin kaydı** gerçekleşen işlemleri blokzincirin değişmez geçmişine yeni satır olarak eklenir. Veriler diske yazıldığından maliyeti düşüktür.
+**Sözleşmede tutulan güncel değer** verinin ağdaki düğümlerde tutulan en güncel halidir. Geçmişteki değerlerle ilgilenmez ve onları bilmez. Akıllı sözleşmelerin bu veriye anlık olarak erişip okuyabilmesi ve tüm nodeların aktif veritabanında (state) tutması nedeniyle maliyeti yüksektir.
+**Geçmiş işlemin kaydı** gerçekleşen işlemleri blokzincirin değişmez geçmişine yeni satır (log) olarak ekler. Akıllı sözleşmeler tarafından içeriden okunmadığı ve sadece geçmiş kaydı olarak tutulduğu için maliyeti düşüktür.
 
-• **Bir etkinlik kayıt sisteminde blokzincir kullanmanın yararı ve ek maliyeti ne olabilir?**
+- **Bir etkinlik kayıt sisteminde blokzincir kullanmanın yararı ve ek maliyeti ne olabilir?**
 
 *Sistemde blokzincir kullanmanın yararı*; toplantı günü, saati, katılımcıların bilgileri gibi değerler değiştirilemez. Bu nedenle kimse kendi başına birisinin ismini katılımcılar listesine ekleyemez, çoğunluğun onayı gerekir. Kimin ne zaman etkinliğe kayıt yaptırdığı herkes tarafından doğrulanabilir.
 *Ek maliyet ve dezavantaj* olarak düşünüldüğünde ise her katılımcının sisteminde tüm etkinliklerin tüm katılımcılarından iz ve veri özeti bulunur. Bu nedenle depolama maliyetleri yüksek olabilir. Ayrıca geleneksel sistemlerde verilerin direkt ve ücretsiz olarak eklenebilmesine karşın, blokzincirde yazılan her isim için bir ücret ödenir.
 
-• **Benim yorumum:** *Hangi durumda normal veritabanını tercih ederdiniz?*
+- **Benim yorumum:** *Hangi durumda normal veritabanını tercih ederdiniz?*
 
 Özellikle verilerin sürekli değişmesi gereken sistemlerde geleneksel veritabanı tercih ederdim. Çünkü sürekli değişmesi gereken bir veri blokzincirde tutuluyorsa zaman ve nakit maliyeti inanılmaz düzeylere ulaşabilir. Örneğin çevrim içi oyunlardaki eşya fiyatları, kahraman özellikleri vs. sürekli değişebileceğinden geleneksel veritabanı daha mantıklı olacaktır.
 
 ## İP02 Node ve Konsensüs
 
-• **Node ve validator nedir? Her node blok üretir mi?**
+- **Node ve validator nedir? Her node blok üretir mi?**
 
 Blokzincir altyapısını oluşturan ve protokol yazılımını çalıştıran her bir cihaza **node** denir. Daha fazla node, daha fazla dayanıklılık anlamına gelir çünkü bir kişinin veya belirli bir kişi grubunun çoğunluk durumuna geçmesi güçleşir.
 
@@ -44,14 +44,14 @@ Blokzincir ağlarında **validatör**; ağ üzerinde gerçekleşen transferleri,
 
 Her node bir blok **üretmez**. Yalnızca validatör gibi özel düğümler blok üretir.
 
-• **Konsensüs neyi sağlar? PoW ve PoS’un temel yaklaşımları nasıl farklılaşır?**
+- **Konsensüs neyi sağlar? PoW ve PoS’un temel yaklaşımları nasıl farklılaşır?**
 
 **Konsensüs**: Önceki başlıklardaki çoğunluğun fikir birliğiyle eklenecek verilere, yapılan işlemlerin geçerliliği gibi konulara karar verilmesi sürecidir.
 **PoW/PoS**: blokzincir ağlarında işlemleri doğrulamak, güvenliği sağlamak ve zincire yeni bloklar eklemek için kullanılan bir konsensüs mekanizmalarıdır.
 PoW mekanizmasında madenciler yeni bir blok oluşturmaya çalışır. Bunun için karmaşık problemleri çözmek zorundadırlar ve bunun için yüksek güçte donanımlar gerekir ve elektrik maliyetleri yüksek olabilir.
 PoS mekanizmasında ise validatörler, işlem onayına katkı ve ödüllendirme için sisteme belirli düzey varlıklarını kilitlerler. Dürüst olan katılımcılara ödül, olmayanlara ise kilitledikleri varlıklardan kesinti yapılır.
 
-**Public/private ve permissionless/permissioned ağ kavramları hangi özellikleri anlatır? Okuma, işlem gönderme ve doğrulayıcı olma izinlerini ayırın.** 
+**Public/private ve permissionless/permissioned ağ kavramları hangi özellikleri anlatır? Okuma, işlem gönderme ve doğrulayıcı olma izinlerini ayırın.** 
 
 **Public Ağ:** Public ağdaki tüm verileri herkes okuyabilir, herkes ağa işlem gönderebilir.
 **Private Ağ:** Verilerde işlem yapmak, yeni veri eklemek, okumak için yetki almak gerekir. Yetkisiz kişilere bu işlemler kapalıdır.
@@ -60,13 +60,13 @@ PoS mekanizmasında ise validatörler, işlem onayına katkı ve ödüllendirme 
 
 **İşlemin bloğa alınması, başarılı çalışması ve kesinleşmesi neden farklıdır?**
 
-İşlemin bloğa alınması sürecinde bir validatör işlemi havuzdan alıp ağa sunar
-Bloğa yazılan işlemin hata vermeden çalışması süreci.
+İşlemin bloğa alınması sürecinde bir validatör işlemi havuzdan alıp bloğa dahil eder.
+Başarılı çalışması ise bloğa alınan işlemin kod içinde hata vermeden tamamlanması sürecidir; çünkü işlem hata verip başarısız olsa bile bloğa girip gas ücreti ödeyebilir.
 Kesinleşmesi sürecinde ise ağa sunulan bloğun, validatörlerin çoğunluğu tarafından konsensüs sağlaması durumunda işlem kesinleşir ve geri dönderilemez hale gelir.
 
 **Benim yorumum: Tek bir node kapanınca bütün ağın durup durmayacağı neye bağlıdır?**
 
-Ağın devamlılığı yeterli node sayısının sağlanıp sağlanmadığına, o node'un ağ üzerindeki görevine bağlıdır. Eğer ki node sayısı yeterli değilse konsensus sağlanamaz. Çünkü çoğunluk sağlanacak kadar node yoktur. Ayrıca eğer ki o node kilit verileri taşıyorsa sistem bozulabilir.
+Ağın devamlılığı yeterli validatör sayısının sağlanıp sağlanmadığına ve o node'un ağ üzerindeki görevine bağlıdır. Normal bir full node kapanırsa ağ etkilenmez çünkü veriler zaten diğer nodelarda da kopyalıdır. Ancak aktif validatör sayısı çoğunluk (konsensüs) sağlanamayacak kadar azalırsa ağ yeni blok üretemez ve durur.
 
 # Cüzdan Varlık ve Sözleşme Kavramları 
 ## İP 03: Kriptografi ve Cüzdan 
@@ -79,15 +79,15 @@ Ağın devamlılığı yeterli node sayısının sağlanıp sağlanmadığına, 
 
 **Private key, public key, adres, mnemonic ve seed arasındaki ilişki nedir**
 
-Bu kavramlar, tek yönlü bir türetme zinciri oluşturur. Baştaki veri bilindiğinde sonraki veriler de aynı şekilde hesaplanır ancak son hali bilinen veriyi geriye döndürmek imkansızdır. Bu 5 işlemin sonucunda ortaya hash çıkar.
+Bu kavramlar, tek yönlü bir türetme zinciri oluşturur (Mnemonic -> Seed -> Private Key -> Public Key -> Adres). Baştaki veri bilindiğinde sonraki veriler de aynı şekilde hesaplanır ancak son hali bilinen veriyi geriye döndürmek imkansızdır. Bu zincirin en sonunda ise ortaya cüzdan adresi çıkar.
 
 **Entropi ve checksum ne işe yarar? BIP39, BIP32 ve BIP44 hangi aşamalarla ilgilidir?**
-Cüzdan oluşturma sırasında entropi güvenlik temelini, checksum hata kontrolünü sağlar. BIP-19, BIP32 ve BIP44 verilerin kelimelerden adreslere kadar hangi kurallarla işleneceğini belirler.
+Cüzdan oluşturma sırasında entropi güvenlik temelini, checksum hata kontrolünü sağlar. BIP39 entropiden kurtarma kelimelerinin (mnemonic) oluşturulmasıyla, BIP32 tek bir seed'den hiyerarşik anahtar türetilmesiyle, BIP44 ise farklı coin ve hesapların standart türetme yollarıyla ilgilidir.
 *Entropi*: Cüzdanın tahmin edilemezliğini sağlayan binary veridir. Rastgele sayı üretici ile 128 veya 256 bit şeklinde üretilir ve bu nedenle herhangi birinin aynı cüzdanı üretebilmesi matematiksel olarak mümkün değildir.
-*Checksum*: Kullanıcı yanlış bir harf girdiğinde sistem bunu fark eder ve geçersiz adres uyarısı verip yanlış ağlara para aktarımını engeller.
+*Checksum*: Kullanıcı kelime listesini veya cüzdan adresini girerken yanlış bir harf yazdığında sistem bunu fark eder ve geçersiz uyarısı vererek hatalı adrese para aktarımını engeller.
 
 **Cüzdan uygulaması ile hesap aynı şey midir? Adresi paylaşmakla anahtarı paylaşmak neden farklıdır? Adres paylaşımının mahremiyet etkisi var mıdır?**
-Cüzdan uygulaması ile hesap aynı şey değildir ancak benzer işlevleri yürütebilirler. Banka hesabında mevduat hesapları bulunur ve devlet güvencesi gibi yasal güvencelere sahiptir. Cüzdan ise banka hesabının aksine para biriktirmek, mevduattan gelir elde etmekten ziyade hızlı ödeme, para transferi, qr kod gibi işlemler içindir.
+Cüzdan uygulaması ile hesap aynı şey değildir. Hesap, blokzincir üzerinde bakiyesi ve adresi bulunan kaydın kendisidir. Cüzdan uygulaması (örneğin MetaMask) ise sadece bu hesaba ait private keyleri saklayan, işlem imzalamamızı ve ağa bağlanmamızı sağlayan bir arayüz yazılımıdır.
 
 Basit bir benzetme yaparsak cüzdan adresi paylaşmak IBAN paylaşmak gibidir. İnsanlar para gönderebilir ancak hesabınıza ve işlemlerinize erişim sağlayamaz. Anahtar paylaşmak ise hesabınıza erişim izni vermektir. Benzetme yapacak olursak banka şifrenizi paylaşmaya benzer. Tüm varlıklarınız çalınabilir ve hesabınızla her işlemi yapabilirler.
 
@@ -141,7 +141,7 @@ Hayır, bence etkinliğe giriş hakkı sağlamak ve temsil etmek için illaha to
 *Kaynak kod:* Geliştiricilerin blokzincirdeki kuralları ve mantığı yazmak için kullandığı kodlardır. Bu kodlar belirli bir programlama dili üzerinde yazıldığından(örneğin solidity) okunabilirdir.
 *Derleme:* Klasik programlama dillerindeki compilerlar gibidir. Yazılan kaynak kodları blokzincir makinesinin anlayabileceği komutlara dönüştürülmesi işlemidir.
 *Bytecode:* Derleme işlemi sonrasında oluşan, makine dilindeki yani sadece blokzincir sanal makinesinin okuyabildiği hexadecimal formattaki kodlardır.
-Aralarındaki ilikli; Kaynak kodu geliştirici yazar ve derleyiciye gönderir. Derleyici kodu işler ve kaynak kod en son bytecode haline dönüşür.
+Aralarındaki ilikli; Kaynak kodu geliştirici yazar ve derleyiciye gönderir. Derleyici kodu işler ve kaynak kod en son bytecode haline dönüşür. Deploy işlemi ise derlenen bu bytecode'u bir işlemle blokzincir ağına gönderip sözleşmeye özel bir adres oluşturarak yayına alır.
 
 **ABI ne işe yarar? Ne zaman elde edilir? Bir sözleşmenin adresi dışında hangi arayüz bilgilerine ihtiyaç duyabilirsiniz?**
 
@@ -182,7 +182,7 @@ Explorer’ın veya bir RPC adresinin kapanması ağın durduğunu göstermez. A
 
 **Event/log ile sözleşmenin güncel state’i nasıl ayrılır? Indexer ne işe yarar?** 
 
-State sadece en güncel durumu tutar ve bilir. Geçmiş işlemleri bilmez. Event/Log ise hem güncel bilgiyi hem geçmişi tutar.
+State sadece en güncel durumu tutar ve bilir. Geçmiş işlemleri bilmez. Event/Log ise geçmişte gerçekleşen işlemlerin ve olayların kaydını tutar; bu geçmiş kayıtlar baştan sona takip edilerek güncel duruma da ulaşılabilir.
 Blokzincirde sql gibi sorgu yapılamaz. "Yani şu cüzdanda yapılan son 1 aydaki işlemleri getir" gibi kolayca sorgu yapılamaz çünkü bu eventler milyonlarca bloğa dağılmış durumdadır. Indexer, yapılan eventlerin hepsini bir bir yakalayıp klasik SQL veritabanına kaydeder. Böylece sorgu yapılabilir.
 
 **Benim yorumum: Explorer olmadan bir kaydı kontrol etmek için hangi yolu araştırırdınız?**
@@ -386,10 +386,15 @@ Adres, banka hesaplarındaki IBAN gibidir. Sadece hesabın nerede bulunduğunu s
 ## İP 15: Test USDC Edin ve İki Transferi Karşılaştır
 
 **İki işlemin To, Value, Input Data, ücret ve token transferi/log alanlarını karşılaştırın. Token’ı cüzdanda göstermekle zincirde almak arasındaki farkı açıklayın.**
-To kısımları aynı çünkü ikisini de 1. hesabımdan 2. hesabıma gönderdim.
-Value kısımında birinde 0.005 SepoilaETH diğerinde ise 1 USDC gönderdim.
-Gas Fee 1.500000018 Gwei gözüküyor ve ikisinde de aynı.
-USDC'de input data kısmı bir fonksiyon şeklinde gözüküyor, SepoilaETH'de ise sadece 0x yazıyor.
+To kısımları aynı değil; SepoliaETH gönderirken To kısmında direkt 2. hesabımın adresi yazıyor ancak USDC gönderirken To kısmında USDC akıllı sözleşmesinin adresi yazıyor, alıcı adresim ise Input Data içinde yer alıyor.<br>
+
+Value kısmında SepoliaETH işleminde 0.005 SepoliaETH yazarken USDC işleminde native varlık gönderilmediği için 0 ETH yazıyor, gönderilen 1 USDC ise Tokens Transferred kısmında görünüyor.<br>
+
+Birim gas fiyatı (Gas Price) 1.500000018 Gwei ile aynı olsa da USDC transferi akıllı sözleşme çalıştırdığı için daha fazla gas harcıyor ve toplam işlem ücreti daha yüksek çıkıyor.<br>
+
+USDC'de input data kısmı transfer fonksiyonu ve parametreleri şeklinde gözüküyor, SepoliaETH'de ise sadece 0x yazıyor. Aynı şekilde SepoliaETH işleminde event log oluşmazken USDC işleminde Transfer event logu oluşuyor.<br>
+
+Token'ı zincirde almak, USDC akıllı sözleşmesindeki bakiye kaydının senin adresine yazılmasıdır. Cüzdanda göstermek (import etmek) ise sadece MetaMask arayüzüne bu sözleşmedeki bakiyeyi ekrana yansıtmasını söylemektir; cüzdanda görünmese bile token zincirde zaten senindir.
 
 **Benim yorumum: USDC gönderirken ücretin hangi bakiyeden karşılandığını nasıl gördünüz?**
 USDC bir token olduğundan gas ücreti Ethereumun temel varlığı olan Sepoila ETH'den gitti. Bunu ilk block explorer'dan transfer işlemlerine bakarken gördüm.
@@ -404,7 +409,7 @@ Hata, işlem zincire gönderilmeden önce, remix ve metamask'ın yaptığı kont
 
 **Takım sözleşmesine yaptığınız başarılı isim kayıt işlemini Sepolia Etherscan’de açın. From, To, Gas Used/ücret, Nonce, Status ve Input Data alanlarını kendi cümlelerinizle açıklayın.**
 
-From kısmında karşılaştırdığımda kendi cüzdan adresim bulunuyor. To kısmında ise sözleşmenin adresi yazıyor. Gas fee kısmında neredeyse milyarda birlik bir gwei ücreti yazıyor. Nonce kısmına baktığımda producer adresi de gözüküyor.Cüzdanımın nonce'u 2'den 3 olmuş. Yani benim gönderdiğim 3. işlem olduğunu belirtiyor. Status kısmında da "Success" olarak başarıyla gerçekleştiğini belirtiyor.<br>
+From kısmında karşılaştırdığımda kendi cüzdan adresim bulunuyor. To kısmında ise sözleşmenin adresi yazıyor. Gas Used kısmında işlemin harcadığı toplam gas birimi, Transaction Fee kısmında ise ödenen çok düşük miktardaki SepoliaETH ücreti yazıyor. Nonce kısmına baktığımda cüzdanımın nonce değerinin bu işlemle birlikte 2 olduğunu (0'dan başladığı için benim gönderdiğim 3. işlem olduğunu) görüyorum. Status kısmında da "Success" olarak başarıyla gerçekleştiğini belirtiyor.<br>
 Input data kısmında ise fonksiyonun ismi ve kimlik kodu bulunur. Ayrıca parametre olarak yazdığım isim de bulunur.
 
 ![alt text](image-3.png)
@@ -441,6 +446,8 @@ Optimization: No
 **Read Contract bölümündeki kayitliMi ve tumKayitlar ile kaydı okuyun; işlemdeki Registered event’ini bulun. Aynı hesabın takım sözleşmesindeki kaydıyla kendi sözleşmenizdeki kaydını ayırın**
 Etherscan register tx hash: 0x3d06290678047ab91af8cdad96777caa797162afec62d60c244531325824b0be,<br>
 ![alt text](image-5.png)
+
+Takım sözleşmesindeki kaydım takım kontratının kendi depolama alanında tutulurken, kendi deploy ettiğim sözleşmedeki kaydım ise yeni oluşturduğum sözleşme adresinin hafızasında birbirinden bağımsız olarak tutuluyor.
 
 **Benim yorumum: Aynı cüzdan takım sözleşmesine ikinci kez kaydolamazken kendi kopyanıza neden kaydolabildi?**
 
