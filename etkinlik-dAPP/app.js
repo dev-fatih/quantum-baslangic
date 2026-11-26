@@ -95,13 +95,41 @@ function updateNetworkUI(chainId) {
 
 function parseError(err) {
   if (err?.code === "ACTION_REJECTED" || err?.code === 4001) {
-    return "İşlem MetaMask üzerinden iptal edildi.";
+    return "İmza reddedildi: İşlemi MetaMask üzerinden iptal ettiniz.";
+  }
+
+  const rawText = [
+    err?.reason,
+    err?.shortMessage,
+    err?.info?.error?.message,
+    err?.message,
+  ]
+    .filter(Boolean)
+    .join(" ");
+
+  if (rawText.includes("Bu adres zaten kayitli")) {
+    return "İşlem başarısız: Bu cüzdan adresi etkinliğe zaten kayıtlı (ikinci kayıt yapılamaz).";
+  }
+  if (rawText.includes("Etkinlik kapasitesi doldu")) {
+    return "İşlem başarısız: Etkinlik kapasitesi dolduğu için yeni kayıt alınamıyor.";
+  }
+  if (rawText.includes("Takma ad bos olamaz")) {
+    return "İşlem başarısız: Takma ad alanı boş bırakılamaz.";
+  }
+  if (rawText.includes("Sadece gorevli giris onaylayabilir")) {
+    return "İşlem başarısız: Yetkisiz hesap. Giriş onayı yalnızca sözleşme görevlisi tarafından yapılabilir.";
+  }
+  if (rawText.includes("Bu adres etkinlige kayitli degil")) {
+    return "İşlem başarısız: Girilen adres etkinliğe kayıtlı değil.";
+  }
+  if (rawText.includes("Bu katilimci zaten giris yapti")) {
+    return "İşlem başarısız: Bu katılımcının girişi daha önce onaylanmış.";
   }
   if (err?.reason) {
-    return `Sözleşme işlemi reddetti: ${err.reason}`;
+    return `İşlem başarısız: Sözleşme işlemi reddetti (${err.reason}).`;
   }
   if (err?.shortMessage) {
-    return err.shortMessage;
+    return `İşlem başarısız: ${err.shortMessage}`;
   }
   return err?.message || "Beklenmeyen bir hata oluştu.";
 }
@@ -235,6 +263,50 @@ async function ensureSepoliaBeforeWrite() {
   return true;
 }
 
+// Gönderilmiş işlemin makbuzunu bekleyen ortak yardımcı fonksiyon
+async function waitAndVerifyReceipt(tx, successText, onSuccess) {
+  const txUrl = `https://sepolia.etherscan.io/tx/${tx.hash}`;
+
+  setStatus(
+    `İşlem ağa gönderildi, zincir onayı (makbuz) bekleniyor... <a href="${txUrl}" target="_blank" rel="noopener noreferrer">Etherscan'de Görüntüle</a>`,
+    "info"
+  );
+
+  let receipt = null;
+  try {
+    receipt = await tx.wait();
+  } catch (waitErr) {
+    if (waitErr?.code === "CALL_EXCEPTION" || waitErr?.receipt?.status === 0) {
+      setStatus(
+        `İşlem başarısız: İşlem bloğa alındı ancak sözleşme tarafından reddedildi. (${parseError(waitErr)}) <a href="${txUrl}" target="_blank" rel="noopener noreferrer">Etherscan'de İncele</a>`,
+        "error"
+      );
+    } else {
+      setStatus(
+        `Sonuç henüz doğrulanamadı: İşlem ağa gönderildi ancak bağlantı sorunu nedeniyle makbuz alınamadı. Aynı işlemi otomatik veya manuel olarak tekrar göndermeyin; durumu buradan kontrol edin: <a href="${txUrl}" target="_blank" rel="noopener noreferrer">Etherscan'de Kontrol Et</a>`,
+        "warning"
+      );
+    }
+    return;
+  }
+
+  if (!receipt || receipt.status !== 1) {
+    setStatus(
+      `İşlem başarısız: İşlem makbuzunda başarısız (status: 0) sonucu döndü. <a href="${txUrl}" target="_blank" rel="noopener noreferrer">Etherscan'de İncele</a>`,
+      "error"
+    );
+    return;
+  }
+
+  if (onSuccess) onSuccess();
+  await loadContractData();
+
+  setStatus(
+    `${successText} <a href="${txUrl}" target="_blank" rel="noopener noreferrer">İşlem Detayı (Etherscan)</a>`,
+    "success"
+  );
+}
+
 // Katılımcı Kayıt İşlemi
 registerForm.addEventListener("submit", async (event) => {
   event.preventDefault();
@@ -251,7 +323,7 @@ registerForm.addEventListener("submit", async (event) => {
   try {
     isBusy = true;
     updateActionButtons();
-    setStatus("Kayıt işlemi için MetaMask onayı bekleniyor...", "info");
+    setStatus("Kayıt işlemi için MetaMask cüzdan onayı bekleniyor...", "info");
 
     signer = await provider.getSigner();
     const writeContract = new ethers.Contract(
@@ -261,19 +333,12 @@ registerForm.addEventListener("submit", async (event) => {
     );
 
     const tx = await writeContract.kayitOl(takmaAd);
-    const txUrl = `https://sepolia.etherscan.io/tx/${tx.hash}`;
-    setStatus(
-      `Kayıt işlemi gönderildi, blok onayı bekleniyor... <a href="${txUrl}" target="_blank" rel="noopener noreferrer">Etherscan'de Görüntüle</a>`,
-      "info"
-    );
-
-    await tx.wait();
-    nicknameInput.value = "";
-    await loadContractData();
-
-    setStatus(
-      `Kayıt başarıyla tamamlandı ve ekran güncellendi. <a href="${txUrl}" target="_blank" rel="noopener noreferrer">İşlem Detayı</a>`,
-      "success"
+    await waitAndVerifyReceipt(
+      tx,
+      "Kayıt makbuz ile doğrulandı, işlem başarıyla tamamlandı.",
+      () => {
+        nicknameInput.value = "";
+      }
     );
   } catch (err) {
     setStatus(parseError(err), "error");
@@ -299,7 +364,7 @@ approveForm.addEventListener("submit", async (event) => {
   try {
     isBusy = true;
     updateActionButtons();
-    setStatus("Giriş onayı için MetaMask imzası bekleniyor...", "info");
+    setStatus("Giriş onayı için MetaMask cüzdan imzası bekleniyor...", "info");
 
     signer = await provider.getSigner();
     const writeContract = new ethers.Contract(
@@ -309,19 +374,12 @@ approveForm.addEventListener("submit", async (event) => {
     );
 
     const tx = await writeContract.girisOnayla(participantAddr);
-    const txUrl = `https://sepolia.etherscan.io/tx/${tx.hash}`;
-    setStatus(
-      `Giriş onayı gönderildi, blok onayı bekleniyor... <a href="${txUrl}" target="_blank" rel="noopener noreferrer">Etherscan'de Görüntüle</a>`,
-      "info"
-    );
-
-    await tx.wait();
-    participantAddressInput.value = "";
-    await loadContractData();
-
-    setStatus(
-      `Katılımcı girişi başarıyla onaylandı ve ekran güncellendi. <a href="${txUrl}" target="_blank" rel="noopener noreferrer">İşlem Detayı</a>`,
-      "success"
+    await waitAndVerifyReceipt(
+      tx,
+      "Katılımcı girişi makbuz ile doğrulandı ve onaylandı.",
+      () => {
+        participantAddressInput.value = "";
+      }
     );
   } catch (err) {
     setStatus(parseError(err), "error");
