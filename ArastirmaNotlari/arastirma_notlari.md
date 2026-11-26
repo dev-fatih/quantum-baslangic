@@ -1,6 +1,6 @@
 # A) Blokzincir Temelleri
-## İP01  Blokzincir ve Ortak Kayıt
 
+## İP 01  Blokzincir ve Ortak Kayıt
 
 - **Blokzincir, işlem, blok ve dağıtık defter nedir? Birbirleriyle nasıl ilişkilidir?**
 
@@ -12,7 +12,7 @@ Blokzincir sistemini bir **defter** olarak düşündüğümüzde, bu defterin sa
 
 **İşlem:** Ağ üzerinde gerçekleşen en küçük veri transferi veya durum değişikliği adımıdır. Defter benzetmesinden devam edersek, defterin sayfaları bloklar ise, o sayfalara alt alta yazılan her bir satırlık kayıt da işlemdir.
 
-Kullanıcılar ağ üzerinde işlemler gerçekleştirir. Bu işlemler doğrulanıp bir paket halinde toplanarak bir blok oluşturur. Oluşturulan bu bloklar, hash yöntemiyle şifrelenip sonraki blokta tutulur. birbirleri arasındaki ilişki genel olarak böyle ifade edilebilir.
+Kullanıcılar ağ üzerinde işlemler gerçekleştirir. Bu işlemler doğrulanıp bir paket halinde toplanarak bir blok oluşturur. Oluşturulan bu blokların hash'i sonraki blokta tutulur. birbirleri arasındaki ilişki genel olarak böyle ifade edilebilir.
 
 - **Merkezi veritabanıyla blokzincir arasında kayıt kontrolü ve güven açısından ne fark vardır?**
 
@@ -34,7 +34,7 @@ Kullanıcılar ağ üzerinde işlemler gerçekleştirir. Bu işlemler doğrulan�
 
 Özellikle verilerin sürekli değişmesi gereken sistemlerde geleneksel veritabanı tercih ederdim. Çünkü sürekli değişmesi gereken bir veri blokzincirde tutuluyorsa zaman ve nakit maliyeti inanılmaz düzeylere ulaşabilir. Örneğin çevrim içi oyunlardaki eşya fiyatları, kahraman özellikleri vs. sürekli değişebileceğinden geleneksel veritabanı daha mantıklı olacaktır.
 
-## İP02 Node ve Konsensüs
+## İP 02 Node ve Konsensüs
 
 - **Node ve validator nedir? Her node blok üretir mi?**
 
@@ -51,20 +51,20 @@ Her node bir blok **üretmez**. Yalnızca validatör gibi özel düğümler blok
 PoW mekanizmasında madenciler yeni bir blok oluşturmaya çalışır. Bunun için karmaşık problemleri çözmek zorundadırlar ve bunun için yüksek güçte donanımlar gerekir ve elektrik maliyetleri yüksek olabilir.
 PoS mekanizmasında ise validatörler, işlem onayına katkı ve ödüllendirme için sisteme belirli düzey varlıklarını kilitlerler. Dürüst olan katılımcılara ödül, olmayanlara ise kilitledikleri varlıklardan kesinti yapılır.
 
-**Public/private ve permissionless/permissioned ağ kavramları hangi özellikleri anlatır? Okuma, işlem gönderme ve doğrulayıcı olma izinlerini ayırın.** 
+- **Public/private ve permissionless/permissioned ağ kavramları hangi özellikleri anlatır? Okuma, işlem gönderme ve doğrulayıcı olma izinlerini ayırın.** 
 
 **Public Ağ:** Public ağdaki tüm verileri herkes okuyabilir, herkes ağa işlem gönderebilir.
 **Private Ağ:** Verilerde işlem yapmak, yeni veri eklemek, okumak için yetki almak gerekir. Yetkisiz kişilere bu işlemler kapalıdır.
 **Permisionless Ağ:** Bu ağlarda isteyen herkes protokol yazılımını indirip onay gerekmeden validator olabilir.
 **Permissioned Ağ:** Bu ağlarda ise sadece konsensüs yetkilileri tarafından izin sağlanan, yetkili node'lar validatör olabilir.
 
-**İşlemin bloğa alınması, başarılı çalışması ve kesinleşmesi neden farklıdır?**
+- **İşlemin bloğa alınması, başarılı çalışması ve kesinleşmesi neden farklıdır?**
 
 İşlemin bloğa alınması sürecinde bir validatör işlemi havuzdan alıp bloğa dahil eder.
 Başarılı çalışması ise bloğa alınan işlemin kod içinde hata vermeden tamamlanması sürecidir; çünkü işlem hata verip başarısız olsa bile bloğa girip gas ücreti ödeyebilir.
 Kesinleşmesi sürecinde ise ağa sunulan bloğun, validatörlerin çoğunluğu tarafından konsensüs sağlaması durumunda işlem kesinleşir ve geri dönderilemez hale gelir.
 
-**Benim yorumum: Tek bir node kapanınca bütün ağın durup durmayacağı neye bağlıdır?**
+- **Benim yorumum: Tek bir node kapanınca bütün ağın durup durmayacağı neye bağlıdır?**
 
 Ağın devamlılığı yeterli validatör sayısının sağlanıp sağlanmadığına ve o node'un ağ üzerindeki görevine bağlıdır. Normal bir full node kapanırsa ağ etkilenmez çünkü veriler diğer nodelarda da kopyalıdır. Ancak aktif validatör sayısı çoğunluk (konsensüs) sağlanamayacak kadar azalırsa ağ yeni blok üretemez ve durur.
 
@@ -138,15 +138,19 @@ Hayır, bence etkinliğe giriş hakkı sağlamak ve temsil etmek için illaha to
 
 **Kaynak kod, derleme ve bytecode nasıl ilişkilidir? Deploy ne yapar?**
 
-*Kaynak kod:* Geliştiricilerin blokzincirdeki kuralları ve mantığı yazmak için kullandığı kodlardır. Bu kodlar belirli bir programlama dili üzerinde yazıldığından(örneğin solidity) okunabilirdir.
-*Derleme:* Klasik programlama dillerindeki compilerlar gibidir. Yazılan kaynak kodları blokzincir makinesinin anlayabileceği komutlara dönüştürülmesi işlemidir.
-*Bytecode:* Derleme işlemi sonrasında oluşan, makine dilindeki yani sadece blokzincir sanal makinesinin okuyabildiği hexadecimal formattaki kodlardır.
-Aralarındaki ilikli; Kaynak kodu geliştirici yazar ve derleyiciye gönderir. Derleyici kodu işler ve kaynak kod en son bytecode haline dönüşür. Deploy işlemi ise derlenen bu bytecode'u bir işlemle blokzincir ağına gönderip sözleşmeye özel bir adres oluşturarak yayına alır.
+*Kaynak kod:* Geliştiricilerin blokzincirdeki kuralları ve mantığı yazmak için kullandığı kodlardır. Bu kodlar belirli bir programlama dili üzerinde yazıldığından(örneğin solidity) okunabilirdir.<br>
+
+*Derleme:* Klasik programlama dillerindeki compilerlar gibidir. Yazılan kaynak kodları blokzincir makinesinin anlayabileceği komutlara dönüştürülmesi işlemidir.<br>
+
+*Bytecode:* Derleme işlemi sonrasında oluşan, makine dilindeki yani sadece blokzincir sanal makinesinin okuyabildiği hexadecimal formattaki kodlardır.<br>
+
+Aralarındaki ilişki; Kaynak kodu geliştirici yazar ve derleyiciye gönderir. Derleyici kodu işler ve kaynak kod en son bytecode haline dönüşür. Deploy işlemi ise derlenen bu bytecode'u bir işlemle blokzincir ağına gönderip sözleşmeye özel bir adres oluşturarak yayına alır.
 
 **ABI ne işe yarar? Ne zaman elde edilir? Bir sözleşmenin adresi dışında hangi arayüz bilgilerine ihtiyaç duyabilirsiniz?**
 
-*ABI:* Blokzincir üzerindeki derlenmiş bytecode ile dış dünya ile iletişim kuran json formatındaki arayüz haritasıdır.
- ABI dosyası, akıllı sözleşmenin kodu derlenildiği anda, sözleşme henüz ağa yüklenmeden ortaya çıkar. 
+*ABI:* Blokzincir üzerindeki derlenmiş bytecode ile dış dünya ile iletişim kuran json formatındaki arayüz haritasıdır.<br>
+ABI dosyası, akıllı sözleşmenin kodu derlenildiği anda, sözleşme henüz ağa yüklenmeden ortaya çıkar.<br>
+
 Sözleşmenin adresi yalnızca sözleşmenin blokzincir üzerindeki konumunu verir. Sözleşmeyle iletişim kurabilmek için ABI dosyası veya çağrılabilecek bir fonksiyonun imzası gerekir.
 
 **Veri okumak ile state değiştiren işlem göndermek nasıl ayrılır?**
@@ -157,7 +161,7 @@ Aynı zamanda veri okuma maliyeti sadece işlemi gerçekleşenin işlemcisini an
 
 **Kaynak kodu verify etmek neyi doğrular? Güvenlik denetimiyle aynı şey midir?**
 
-Kaynak kodu verify etme(doğrulama) işlemi, kaynak kodunun derleyiciyle makine dili(bytecode)'a çevrildikten sonra geliştirici kaynak kodunu ve oluşan bytecode'u blokzincir tarayıcıya yükler, kaynak kod tekrar derlenip önceden oluşan bytecode ile karşılaştırılması işlemidir.
+Kaynak kodu verify etme(doğrulama) işlemi, kaynak kodunun derleyiciyle makine dili(bytecode)'a çevrildikten sonra geliştirici kaynak kodu ve derleme ayarlarını tarayıcıya yükler, tarayıcı kodu kendisi derleyip zincirdeki bytecode ile eşleştirir.
 Güvenlik denetimi ile aynı şey değildir. Güvenlik denetimi, koddaki mantık hataları, siber saldırıya karşı zaafiyetler gibi problemlerin olup olmadığının kontrolü sürecidir.
 
 **Benim yorumum: Aynı kod iki farklı adrese yayınlanınca kayıtları neden ayrı olabilir?**
@@ -215,7 +219,7 @@ Mesaj imzalamak ise blokzincire herhangi bir veri yazmadan, bir metnin sizin ama
 
 *Txid/transaction hash,* Ağa gönderilen bir işlemin takip numarasıdır. 
 *Sözleşme adresi,* Bir akıllı sözleşmenin blokzincir üzerindeki çalıştığı konumu belirtir. 
-*Block Hash,* doğrulandıktan sonra zincire eklenen bir bloğun şifrelenmiş izidir.
+*Block Hash,* doğrulandıktan sonra zincire eklenen bir bloğun kriptografik özetidir.
 
 **Pending, receipt ve status nedir? İşlem hash’i neden tek başına başarı kanıtı değildir**
 
@@ -286,7 +290,7 @@ Nano blokzinciri, geleneksel blokzincirlerden farklı çalışır. Blokzincirin 
 
 **Neden blokzincir kullandığını ve normal bir veritabanıyla yapılsaydı neyin değişeceğini değerlendirin.**
 
-Blokzincir kullanılma sebebi, farklı ülkeler arası varlık transferinin yavaşlığı ve yüksek işkem ücretinden kurtulmaktır. Normal veritabanı kullanılsaydı, bu transferler çok daha pahalı ve yavaş gerçekleşirdi.
+Blokzincir kullanılma sebebi, farklı ülkeler arası varlık transferinin yavaşlığı ve yüksek işlem ücretinden kurtulmaktır. Normal bir veritabanıyla yapılsaydı, tek bir merkezi işletmeciye güvenme zorunluluğu. Şeffaflığın kaybolması gibi durumlar ortaya çıkardı.
 
 **Kullanıcının yöneticiye, işletmeciye veya veri sağlayıcısına hangi konularda güvendiğini belirtin**
 
@@ -312,7 +316,7 @@ Yarışma sürecinde başvuru aşamasından sonra proje ön değerlendirme ve de
 
 **Anlamadığınız kavramlar varsa; araştırıp kısa biçimde açıklayın**
 
-DLT(Distributed Ledger Technology) : Dağıtık defter teknolojisi, blokzincir teknolojisinin de bir alt dalı olan merkeziyetsiz teknoloji türüdür.
+DLT(Distributed Ledger Technology) : Dağıtık defter teknolojisi, blokzincirin kendisinin bir alt dalı olduğu merkeziyetsiz teknoloji türüdür.
 Sidechain: Ana blokzincire paralel ancak bağımsız ayrı bir blokzincir ağıdır. Temel amacı ana zincirin yükünü azaltmaktır.
 MPC: DLT ağlarındaki dijital varlık ve anahtarların güvenliğini sağlayan kriptografik yöntem.
 
@@ -374,7 +378,7 @@ Uygulamamdaki koda göre mnemonic, en başta entropiden üretilen ve seed üzeri
 
 ![alt text](image.png)
 
-**Checksum sonucu**: yaklaşık 15 tane kelimeyi 12. kurtarma kelimesi ile değiştirdim ancak hiçbiri kabul edilmedi.
+**Checksum sonucu**: yaklaşık 15 tane kelimeyi 12. kurtarma kelimesi ile değiştirdim ancak hiçbiri kabul edilmedi.12 kelimelik BIP39 mnemonic'inde checksum yalnızca 4 bit olduğu için, rastgele bir kelime değişikliğinin %6,25 ihtimalle yine geçerli checksum üretebilir. Yani mümkündür.
 
 **Geçerli mnemonic ile güvenli biçimde üretilmiş mnemonic aynı iddia mıdır?**
 
@@ -383,6 +387,10 @@ Hayır aynı şey değildir. Rastgele 12 kelime de checksum kuralına uyabilir v
 # B) Test Varlıkları 
 
 ## İP 14: Test ETH Kaynağını Kendin Bul
+
+Kullandığım faucet adresi: https://cloud.google.com/application/web3/faucet/ethereum/sepolia
+
+Koşul olarak günde 1 cüzdan hesabı ve google hesabı 1 kez 0.05 sepoilaETH alabiliyor.
 ![alt text](image-1.png)
 
 ![alt text](image-2.png)
@@ -497,6 +505,15 @@ Takma adları aynı olabilir. Aynı takma adın alınmasını önleyen bir kontr
 
 ## İP21: Kapasite ve Kayıt Kurallarını Ekle
 
+**TABLO**
+| Deneme | Beklenen Sonuç | Gözlemlenen Sonuç |
+| :--- | :--- | :--- |
+| İlk geçerli kayıt | Kabul; toplam 1. | Kabul edildi; `toplamKayit` değeri 1 oldu. |
+| Aynı hesaptan tekrar kayıt | Ret; toplam 1. | Reddedildi (`"Bu adres zaten kayitli"` revert); `toplamKayit` 1 olarak kaldı. |
+| Yeni hesaptan boş ad | Ret; toplam 1. | Reddedildi (işlem revert oldu); `toplamKayit` 1 olarak kaldı. |
+| İkinci ve üçüncü geçerli kayıt | Kabul; toplam 3. | Kabul edildi; `toplamKayit` sırasıyla 2 ve 3 oldu. |
+| Dördüncü farklı hesabın kaydı | Ret; toplam 3. | Reddedildi (`"Etkinlik kapasitesi doldu."` revert); `toplamKayit` 3 olarak kaldı.
+<br>
 **Benim yorumum: Adres başına sınırın gerçek kişi sayısını neden garanti etmediğini açıklayın**
 
 Adres sayısı kişi sayısını belirtmez. İsteyen kişi onlarca cüzdan açabilir ve oradan tekrar kayıt olabilir. O nedenle adres başına sınır kişi sayısını garanti etmez.
@@ -504,6 +521,16 @@ Adres sayısı kişi sayısını belirtmez. İsteyen kişi onlarca cüzdan açab
 # D) Yetkilendirme ve Test Ağına Geçiş
 
 ## İP 22: Görevli ve Giriş Kontrolünü Ekle 
+
+**TABLO**
+
+| Deneme | Beklenen Sonuç | Gözlemlenen Sonuç |
+| :--- | :--- | :--- |
+| Görevli kayıtlı kişiye giriş verir | Başarı; giriş durumu değişir ve event oluşur. | Başarılı; `girisYaptiMi` değeri `true` oldu ve `GirisOnaylandi` event'i yayımlandı. |
+| Görevli olmayan hesap giriş verir | Ret; durum değişmez. | Reddedildi (`"Sadece gorevli giris onaylayabilir"` revert); durum değişmedi. |
+| Görevli kayıtsız adrese giriş verir | Ret. | Reddedildi (`"Bu adres etkinlige kayitli degil"` revert). |
+| Aynı katılımcıya ikinci giriş | Ret; ilk giriş kaydı korunur. | Reddedildi (`"Bu katilimci zaten giris yapti"` revert); ilk giriş kaydı korundu. |
+<br>
 
 **Benim yorumum: Arayüzde düğmeyi gizlemek yerine yetkiyi sözleşmede denetlemek neden gerekir?**
 
@@ -513,8 +540,8 @@ Arayüzde düğmeyi gizlemek klasik web uygulamalarında işe yaramayacağı gib
 
 **Sözleşme adresini, ABI’yi, derleme ayarlarını ve deploy tx hash’ini projenize ekleyin. Gizli anahtarları eklemeyin.**
 
-Sözleşme Adresi: 0xb2091df741d130a29070d77b0b8890be3710d3f7 <br>
-Tx hash: 0xab7eed83c94bdc6b8dc0322d920fc42fd94096b22dd9ac91c82c4b78216364e3<br>
+Sözleşme Adresi: 0xcdc5d6ef8eebfc2601961e95363f00e0ef7fa30a <br>
+Tx hash: 0x1eab51425c25df9729948b90ee0c8b9c623f94795e2bc29f1b215cf74e0aea6b <br>
 ABI: (txt olarak depoya eklendi.)<br>
 Compiler Version: v0.8.34+commit.80d5c536 <br>
 Optimization: No<br>
@@ -526,8 +553,8 @@ Kayıt ve giriş durumu başarılı olmuştur. Yerel denemedeki kayıtlar Blokzi
 
 **Benim yorumum: Aynı projenin yerel ve Sepolia sürümlerini karıştırmamak için hangi bilgileri kontrol edersiniz?**
 
-Öncelikle bağlı olunan ağ'a bakarım. Eğer ki Remix VM ise test ağıdır ancak Metamask Sepoila seçiliyse gerçek sürümdeyimdir<br>
-Cüzdan adresini kontrol edebiliriz çünkü test ağında gerçek cüzdan hesabımızı kullanmıyoruz.<br>
+Öncelikle bağlı olunan ağ'a bakarım. Eğer ki Remix VM ise yerel simülasyon ağıdır ancak Metamask Sepoila seçiliyse Sepoila test ağındayımdır<br>
+Cüzdan adresini kontrol edebiliriz çünkü simülasyon ağında gerçek cüzdan hesabımızı kullanmıyoruz.<br>
 Sözleşme adreslerini kontrol ederim.
 
 ## E) Kendi Web Uygulamanı Oluştur 
@@ -537,3 +564,14 @@ Sözleşme adreslerini kontrol ederim.
 **Sayfada etkinlik adı, kapasite ve toplam kayıt sayısı gösterilsin. İP 23’teki adres ve ABI kullanılsın; bunların yapılandırmada nerede bulunduğunu belirtin.**
 
 Adres ve ABI config.js isimli dosyada bulunmaktadır.
+
+**Benim yorumum: Kodda cüzdan bağlantısı, sözleşme çağrısı ve veri okuma yapılan yerleri gösterin.**
+
+Üçü de app.js dosyasının içerisinde bulunur:<br>
+
+
+ "async function connectWallet()" fonksiyonu provider komutu aracılığıyla metamask'a bağlanır ve sonra provider.send komutuyla bağlantı isteği gönderir. provider.getsigner() ile de blokzincirde gerçekleşecek değişim veya ekleme için imza atmayı sağlar.<br>
+
+ "loadContractData" kısmında sadece okuma gereken işlemler için erişim sağlar.<br>
+
+ Sözleşme çağrısı için ise registerForm ve approveForm fonksiyonları kullanılıyor. Bu işlemler de zincirde state değiştirir o yüzden gas fee gerekir. Aynı zamanda imza da gerektiğinden signer ile (new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer) (writeContract)) oluşturulur. Kayıt formunda await writeContract.kayitOl(takmaAd), <br> görevli formunda ise (await writeContract.girisOnayla(participantAddr)) çağrılarak işlem MetaMask'a imzalatılıp ağa gönderiliyor ve await tx.wait() ile bloğa alınıyor.

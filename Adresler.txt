@@ -12,6 +12,6 @@ Account2 : 0xB8512BA142BE734e6873406d2027b2160f838F86
 
 _______________________________________________________________________________________
 
-Kendi yazdığım sözleşmenin adresi: 
+Kendi yazdığım sözleşmenin adresi: 0xcdc5d6ef8eebfc2601961e95363f00e0ef7fa30a
 Account1 sözleşmenin contract creator'ı
 
