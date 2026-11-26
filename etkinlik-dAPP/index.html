@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Etkinlik Kayıt ve Giriş dApp (Sepolia)</title>
+  <link rel="stylesheet" href="./style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/ethers@6.13.4/dist/ethers.umd.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <header class="topbar">
+      <div>
+        <h1>Etkinlik Kayıt & Giriş Paneli</h1>
+        <p class="subtitle">Sepolia Test Ağı • MetaMask İmzalı Web3 Uygulaması</p>
+      </div>
+      <div class="wallet-controls">
+        <span id="networkBadge" class="badge badge-neutral">Ağ: Bağlı Değil</span>
+        <button id="connectBtn" class="btn btn-primary">Cüzdan Bağla</button>
+      </div>
+    </header>
+
+    <div id="configWarning" class="alert alert-error hidden">
+      <strong>Yapılandırma Eksik:</strong> <code>config.js</code> içindeki
+      <code>CONTRACT_ADDRESS</code> alanına İP 23'teki Sepolia sözleşme adresini yazın.
+    </div>
+
+    <div id="networkWarning" class="alert alert-warning hidden">
+      <div>
+        <strong>Yanlış Ağ Algılandı:</strong> Kayıt ve giriş onay işlemleri yalnızca
+        <strong>Sepolia Test Ağı (Chain ID: 11155111)</strong> üzerinde gönderilebilir.
+      </div>
+      <button id="switchSepoliaBtn" class="btn btn-warning">Sepolia'ya Geç</button>
+    </div>
+
+    <section class="card">
+      <div class="card-header">
+        <h2>Etkinlik Bilgileri</h2>
+        <button id="refreshBtn" class="btn btn-secondary" disabled>Bilgileri Yenile</button>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-box">
+          <span class="stat-label">Etkinlik Adı</span>
+          <strong id="eventName">—</strong>
+        </div>
+        <div class="stat-box">
+          <span class="stat-label">Kapasite</span>
+          <strong id="eventCapacity">—</strong>
+        </div>
+        <div class="stat-box">
+          <span class="stat-label">Toplam Kayıt</span>
+          <strong id="totalRegistrations">—</strong>
+        </div>
+        <div class="stat-box">
+          <span class="stat-label">Kalan Kontenjan</span>
+          <strong id="remainingSpots">—</strong>
+        </div>
+      </div>
+      <p class="meta-line">
+        Bağlı Cüzdan: <code id="walletAddress">Bağlı değil</code>
+      </p>
+    </section>
+
+    <div class="two-col">
+      <!-- Katılımcı Bölümü -->
+      <section class="card">
+        <h2>Katılımcı İşlemleri</h2>
+
+        <div class="status-panel">
+          <div class="status-row">
+            <span>Kayıt Durumunuz:</span>
+            <strong id="userRegStatus">—</strong>
+          </div>
+          <div class="status-row">
+            <span>Kayıtlı Takma Ad:</span>
+            <strong id="userNickname">—</strong>
+          </div>
+          <div class="status-row">
+            <span>Giriş Durumunuz:</span>
+            <strong id="userCheckinStatus">—</strong>
+          </div>
+        </div>
+
+        <form id="registerForm" class="form-group">
+          <label for="nicknameInput">Takma Ad</label>
+          <input
+            id="nicknameInput"
+            type="text"
+            placeholder="Örn: fatih_dev"
+            maxlength="64"
+            autocomplete="off"
+          />
+          <button id="registerBtn" type="submit" class="btn btn-primary" disabled>
+            Kayıt Ol
+          </button>
+        </form>
+      </section>
+
+      <!-- Görevli Bölümü -->
+      <section class="card">
+        <h2>Görevli Giriş Onayı</h2>
+        <p class="info-note">
+          Yetki kontrolü akıllı sözleşme tarafından zincir üzerinde yapılır; arayüz tek güvenlik
+          katmanı değildir. Yetkisiz hesaplardan gönderilen işlemler sözleşme tarafından reddedilir.
+        </p>
+        <p class="meta-line">
+          Sözleşme Görevlisi: <code id="officerAddressInfo">—</code>
+        </p>
+
+        <form id="approveForm" class="form-group">
+          <label for="participantAddressInput">Katılımcı Cüzdan Adresi</label>
+          <input
+            id="participantAddressInput"
+            type="text"
+            placeholder="0x..."
+            autocomplete="off"
+          />
+          <button id="approveBtn" type="submit" class="btn btn-success" disabled>
+            Girişi Onayla
+          </button>
+        </form>
+      </section>
+    </div>
+
+    <section id="statusBox" class="status-box hidden" aria-live="polite"></section>
+  </div>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

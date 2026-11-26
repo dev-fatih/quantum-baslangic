@@ -1,4 +1,4 @@
-# Blokzincir Temelleri
+# A) Blokzincir Temelleri
 ## İP01  Blokzincir ve Ortak Kayıt
 
 
@@ -68,7 +68,7 @@ Kesinleşmesi sürecinde ise ağa sunulan bloğun, validatörlerin çoğunluğu 
 
 Ağın devamlılığı yeterli validatör sayısının sağlanıp sağlanmadığına ve o node'un ağ üzerindeki görevine bağlıdır. Normal bir full node kapanırsa ağ etkilenmez çünkü veriler diğer nodelarda da kopyalıdır. Ancak aktif validatör sayısı çoğunluk (konsensüs) sağlanamayacak kadar azalırsa ağ yeni blok üretemez ve durur.
 
-# Cüzdan Varlık ve Sözleşme Kavramları 
+# A) Cüzdan Varlık ve Sözleşme Kavramları 
 ## İP 03: Kriptografi ve Cüzdan 
 
 **Hash, şifreleme ve dijital imza hangi farklı amaçlarla kullanılır?**
@@ -164,7 +164,7 @@ Güvenlik denetimi ile aynı şey değildir. Güvenlik denetimi, koddaki mantık
 
 Kodlar farklı adreslerde olduğundan kodlardaki işlemlerin uygulanacağı veriler de farklı olur. Bu nedenle kayıtları ayrı olabilir.
 
-# Ağ Erişimi İşlemler ve Ekosistem 
+# A) Ağ Erişimi İşlemler ve Ekosistem 
 
 ## İP 06: RPC Explorer ve Event 
 
@@ -269,7 +269,7 @@ ZK'nın kullanılıyor olması tek başına veri gizliliğini belirtmez. ZK, ağ
 
 Kesinlikle optimizasyon kısmını daha sonralarda öğrenmek isterim. Tüm sistemin nasıl çalıştığını, temellerini iyice kavradıktan sonra o sistemi daha hızlı ve daha ucuza çalıştırmayı öğrenebileceğimi düşünüyorum. 
 
-# Proje ve Yarışma Araştırması
+# A) Proje ve Yarışma Araştırması
 
 ## İP 09: Gerçek Bir Blokzincir Projesini İncele
 
@@ -320,7 +320,7 @@ MPC: DLT ağlarındaki dijital varlık ve anahtarların güvenliğini sağlayan 
 
 Fikrimce çok fazla terim ve teorik bilgi olmasına rağmen bunlardan ziyade temel mantığı görsel olarak kafada oturtmanın daha çok işe yarayacağını düşünüyorum. Örneğin validatörler, düğümler bloklar arası ilişkiler, akıllı sözleşmelerin nasıl çalıştığı ve nasıl akıllı sözleşme temelli uygulamalar yapıldığı gibi noktaları anlamak temel olmasına karşın en çok işe yarayacak nokta olabilir.
 
-# Uygulama İçin Çalışma Ortamı
+# B) Uygulama İçin Çalışma Ortamı
 
 ## IP11 Çalışma Ortamını Hazırla
 
@@ -342,7 +342,7 @@ Solidity: EVM uyumlu blokzincir ağlarında akıllı sözleşme yazmak için kul
 **Benim yorumum: Hangi araç size yeniydi? Kurulumda nasıl ilerlediniz**
 Remix IDE'yi daha önce kullanmadım aynı zamanda MetaMask da kullanmamıştım diğer araçlar zaten mevcuttu.
 
-# Kendi Cüzdanını Oluştur ve Doğrula
+# B) Kendi Cüzdanını Oluştur ve Doğrula 
 
 ## İP12 Kendi Cüzdan Oluşturucunu Yaz
 
@@ -380,8 +380,9 @@ Uygulamamdaki koda göre mnemonic, en başta entropiden üretilen ve seed üzeri
 
 Hayır aynı şey değildir. Rastgele 12 kelime de checksum kuralına uyabilir ve güvenli biçimde üretilmemiştir. 
 
-# Test Varlıkları
+# B) Test Varlıkları 
 
+## İP 14: Test ETH Kaynağını Kendin Bul
 ![alt text](image-1.png)
 
 ![alt text](image-2.png)
@@ -394,7 +395,8 @@ Adres, banka hesaplarındaki IBAN gibidir. Sadece hesabın nerede bulunduğunu s
 ## İP 15: Test USDC Edin ve İki Transferi Karşılaştır
 
 **İki işlemin To, Value, Input Data, ücret ve token transferi/log alanlarını karşılaştırın. Token’ı cüzdanda göstermekle zincirde almak arasındaki farkı açıklayın.**
-To kısımları aynı değil; SepoliaETH gönderirken To kısmında direkt 2. hesabımın adresi yazıyor ancak USDC gönderirken To kısmında USDC akıllı sözleşmesinin adresi yazıyor, alıcı adresim ise Input Data içinde yer alıyor.
+To kısımları aynı değil; SepoliaETH gönderirken To kısmında direkt 2. hesabımın adresi yazıyor ancak USDC gönderirken To kısmında USDC akıllı sözleşmesinin adresi yazıyor, alıcı adresim ise Input Data içinde yer alıyor.<br/>
+
 Value kısmında SepoliaETH işleminde 0.005 SepoliaETH yazarken USDC işleminde native varlık gönderilmediği için 0 ETH yazıyor, gönderilen 1 USDC ise Tokens Transferred kısmında görünüyor.
 Birim gas fiyatı (Gas Price) 1.500000018 Gwei ile aynı olsa da USDC transferi akıllı sözleşme çalıştırdığı için daha fazla gas harcıyor ve toplam işlem ücreti daha yüksek çıkıyor.
 USDC'de input data kısmı transfer fonksiyonu ve parametreleri şeklinde gözüküyor, SepoliaETH'de ise sadece 0x yazıyor. Aynı şekilde SepoliaETH işleminde event log oluşmazken USDC işleminde Transfer event logu oluşuyor.
@@ -402,6 +404,8 @@ Token'ı zincirde almak, USDC akıllı sözleşmesindeki bakiye kaydının senin
 
 **Benim yorumum: USDC gönderirken ücretin hangi bakiyeden karşılandığını nasıl gördünüz?**
 USDC bir token olduğundan gas ücreti Ethereumun temel varlığı olan Sepoila ETH'den gitti. Bunu ilk block explorer'dan transfer işlemlerine bakarken gördüm.
+
+# C) Takım Sözleşmesiyle İşlem Yap 
 
 ## İP 16: Remix ile Gerçek İsmini Kaydet
 
@@ -414,6 +418,8 @@ Kontrol sitesinde (`haloclineblockchain.vercel.app`) ismimi arattım ve kaydım�
 **Benim yorumum: İsminizin sitede görünmesiyle zincirde kaydedilmiş olması aynı kontrol müdür?**
 
 Hayır, aynı kontrol değildir. Zincirde kaydedilmiş olması işlemin blokzincire işlendiğini ve sözleşmenin kendi hafızasında tutulduğunu doğrular. Sitede görünmesi ise sadece o web arayüzünün doğru sözleşme adresini okuyup kendi listesiyle eşleştirdiğini gösterir. Site çökse veya yanlış kontrata baksa bile zincirdeki kaydım durmaya devam eder.
+
+# C) Kanıtla ve Kendi Kopyanı Yayınla 
 
 ## İP17: Explorer ile Kaydı Doğrula
 
@@ -471,10 +477,63 @@ Takım sözleşmesindeki kaydım takım kontratının kendi depolama alanında t
 
 Akıllı sözleşmelerdeki adres başına kayıt yalnızca işlemin gönderildiği sözleşme adresinin hafızası içinde kontrol edildiği için kaydolabiliyoruz. Yani yeni sözleşme diğer sözleşmenin hafızasını tutmaz.
 
-# D) Kendi Etkinlik Sözleşmeni Geliştir 
+# D) Kendi Etkinlik Sözleşmeni Geliştir
 
-## İP 20: İlk Etkinlik Kaydını Oluştur 
+## İP 20: İlk Etkinlik Kaydını Oluştur
 
-Kodda veri, Remix'in oluşturduğu blokzincir simülasyonunun içinde tutulur. Eğer ki gerçek bir blokzincire deploy etseydik direkt olarak blokzincirin storage kısmında bulunacaktı.<br>
+**Kodda verinin nerede tutulduğunu ve msg.sender’ın görevini açıklayın.**
+
+Değişkenler durum değişkeni olduğundan blokzincirin storage bölgesinde tutulur. Yani direkt blokzincirde tutulur. Burada Remix VM kullandığımızdan blokzincir ağı tarayıcıda simüle edilir. Ancak gerçek bir blokzincire deploy edildiğinde blokzincir içinde bulunur.<br>
 
 msg.sender; sözleşmedeki işlemi gönderenin cüzdan adresini yakalayan bir etikettir. Kayıt olma fonksiyonu başlatıldığında kod, işlemi başlatan kişinin adresini takma adıyla birlikte kaydeder.
+
+**Benim yorumum: Bu ilk sürüm hangi yanlış kullanımları henüz engellemiyor?**
+
+Kullanıcı boş takma ad ile kayıt oluşturabilir <br>
+
+Kullanıcı farklı kullanıcı adlarıyla tekrar kayıt olma fonksiyonunu çağırırsa adının üstüne yenisi yazılır.<br>
+
+Takma adları aynı olabilir. Aynı takma adın alınmasını önleyen bir kontrol koymadık.
+
+## İP21: Kapasite ve Kayıt Kurallarını Ekle
+
+**Benim yorumum: Adres başına sınırın gerçek kişi sayısını neden garanti etmediğini açıklayın**
+
+Adres sayısı kişi sayısını belirtmez. İsteyen kişi onlarca cüzdan açabilir ve oradan tekrar kayıt olabilir. O nedenle adres başına sınır kişi sayısını garanti etmez.
+
+# D) Yetkilendirme ve Test Ağına Geçiş
+
+## İP 22: Görevli ve Giriş Kontrolünü Ekle 
+
+**Benim yorumum: Arayüzde düğmeyi gizlemek yerine yetkiyi sözleşmede denetlemek neden gerekir?**
+
+Arayüzde düğmeyi gizlemek klasik web uygulamalarında işe yaramayacağı gibi blokzincirde de kesinlikle işe yaramaz. Blokzincirde zaten halihazırda sözleşmeler herkese açık durumdadır. Etherscan'den kişi sözleşmeyi bulup, istediği işlemi yapabilir. O nedenle kontrol koymak zorunludur.
+
+## İP 23: Etkinlik Sözleşmeni Sepolia’ya Taşı 
+
+**Sözleşme adresini, ABI’yi, derleme ayarlarını ve deploy tx hash’ini projenize ekleyin. Gizli anahtarları eklemeyin.**
+
+Sözleşme Adresi: 0xb2091df741d130a29070d77b0b8890be3710d3f7 <br>
+Tx hash: 0xab7eed83c94bdc6b8dc0322d920fc42fd94096b22dd9ac91c82c4b78216364e3<br>
+ABI: (txt olarak depoya eklendi.)<br>
+Compiler Version: v0.8.34+commit.80d5c536 <br>
+Optimization: No<br>
+EVM : Osaka<br>
+
+**Kayıt ve giriş durumunu okuyun; ilgili işlemleri explorer’da bulun. Yerel denemedeki kayıtların bu yeni örneğe taşınmadığını kontrol edin.**
+
+Kayıt ve giriş durumu başarılı olmuştur. Yerel denemedeki kayıtlar Blokzincirle ilişkili olmadığından oradaki yaptığımız kayıtlar taşınmamıştır.
+
+**Benim yorumum: Aynı projenin yerel ve Sepolia sürümlerini karıştırmamak için hangi bilgileri kontrol edersiniz?**
+
+Öncelikle bağlı olunan ağ'a bakarım. Eğer ki Remix VM ise test ağıdır ancak Metamask Sepoila seçiliyse gerçek sürümdeyimdir<br>
+Cüzdan adresini kontrol edebiliriz çünkü test ağında gerçek cüzdan hesabımızı kullanmıyoruz.<br>
+Sözleşme adreslerini kontrol ederim.
+
+## E) Kendi Web Uygulamanı Oluştur 
+
+## İP 24: Cüzdan Bağlantılı Arayüzü Geliştir 
+
+**Sayfada etkinlik adı, kapasite ve toplam kayıt sayısı gösterilsin. İP 23’teki adres ve ABI kullanılsın; bunların yapılandırmada nerede bulunduğunu belirtin.**
+
+Adres ve ABI config.js isimli dosyada bulunmaktadır.

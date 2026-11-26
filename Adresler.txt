@@ -1,0 +1,17 @@
+Kendi deploy ettiğim QuantumTeam sözleşmesi
+(Solidity 0.8.34+commit.80d5c536)
+Osaka
+Contract Tx Hash: 0x9b855b84e600576ca0735216e6709612686f76a191dbf3eadbda9ab84382c1fa
+Contract Adress: 0x7843FB7EAeE20B9713b1fF40AA3A2D3a76F595A7
+Optimization: No
+
+
+_______________________________________________________________________________________
+Account1 : 0x29acEDCbF42AFbDA1c1961a305095fFFe02243e9
+Account2 : 0xB8512BA142BE734e6873406d2027b2160f838F86
+
+_______________________________________________________________________________________
+
+Kendi yazdığım sözleşmenin adresi: 
+Account1 sözleşmenin contract creator'ı
+

@@ -2,7 +2,7 @@
 pragma solidity ^0.8.20;
 
 contract EtkinlikKayit {
-    string public etkinlikAdi = "Blockchain 101 Atolyesi";
+    string public etkinlikAdi = "Blockhain kayit";
     uint256 public kapasite = 3;
     uint256 public toplamKayit;
 
