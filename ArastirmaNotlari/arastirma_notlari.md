@@ -645,10 +645,6 @@ Adres ve ABI `config.js` isimli dosyada bulunmaktadır.
 
 Sözleşme çağrısı için ise `registerForm` ve `approveForm` fonksiyonları kullanılıyor. Bu işlemler de zincirde state değiştirir, o yüzden gas fee gerekir. Aynı zamanda imza da gerektiğinden `signer` ile `new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer)` (`writeContract`) oluşturulur. Kayıt formunda `await writeContract.kayitOl(takmaAd)`, görevli formunda ise `await writeContract.girisOnayla(participantAddr)` çağrılarak işlem MetaMask'a imzalatılıp ağa gönderiliyor ve `await tx.wait()` ile bloğa alınıyor.
 
-
-
-## İP 25: Bekleme ve Hata Durumlarını Göster
-
 ## İP 25: Bekleme ve Hata Durumlarını Göster
 
 - **Başarılı kayıt, imza reddi, tekrar kayıt, görevli olmayan hesapla giriş ve hesap değişimi senaryolarını deneyip sonucu yazın.**
@@ -662,3 +658,9 @@ Hesap değiştirme işleminde otomatik olarak cüzdan adresi değişti ve aynı 
 İkinci kez kayıt olmayı denediğimde ise `"İşlem başarısız: Bu cüzdan adresi etkinliğe zaten kayıtlı (ikinci kayıt yapılamaz)."` uyarısı yine bir bug olmadan ekrana yazıldı.
 
 Yetkisiz hesapla giriş onaylamaya çalıştığımda ise yine sorunsuz şekilde `"İşlem başarısız: Yetkisiz hesap. Giriş onayı yalnızca sözleşme görevlisi tarafından yapılabilir."` uyarısı ekranıma yazıldı.
+
+- **Benim yorumum: “İşlem başarısız” ve “sonuç henüz doğrulanamadı” mesajlarını neden ayırdınız**
+
+**"İşlem başarısız"** durumunda işlemin ağ veya sözleşme tarafından reddedildiği kesindir. Kullanıcı hatayı düzeltip tekrar işlemi gönderebilir.
+
+**"Sonuç henüz doğrulanamadı"** durumunda ise işlem ağa ulaşır ancak bağlantı veya rpc sorunu sebebiyle receipt okunamamıştır. İşlem halihazırda onaylanmış olabilir. Kişinin işlemin reddedildiğini sanıp gereksiz tekrar eden işlem ekleyip gereksiz gas harcaması yapmasını önlemek için bu iki mesajı ayırdık.
