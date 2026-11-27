@@ -20,6 +20,10 @@ Bu depo, QuantumTeam Teknofest Kulübü Blokzincir Takımı oryantasyon süreci 
 
 - BlockChainKayitV3.sol , benim yazdığım akıllı sözleşme.(V2 ve V1 diğer versiyonları)
 
+- etkinlik-dAPP, blokzincir tabanlı uygulama.
+
+- Adresler.txt, sözleşmelerimi deploy ederken lazım olan adresler ve gerekli bilgiler.
+
 ### .sol uzantılı dosyaları çalıştırmak için aşağıdaki adımları uygulayın:
 1. Tarayıcıda [Remix IDE](https://remix.ethereum.org/) adresini açın.
 2. Sol menüdeki **File Explorer** bölümünden **Load a local file into current workspace** butonuna tıklayarak depodaki `.sol` dosyasını çalışma alanına yükleyin.
